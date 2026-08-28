@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hành Trình Việt Nam & Phong Bì Bay</title>
+    <title>Hành Trình Việt Nam & Thư Tình</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -26,18 +26,18 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ----- INTRO: CẢNH ĐẤT NƯỚC VIỆT NAM (MÁY BAY TỪ BẮC VÀO NAM) ----- */
+        /* ----- INTRO MÀN HÌNH CHÀO (YÊU CẦU BẤM ĐỂ VÀO) ----- */
         .intro-scene {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             background: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
-            z-index: 9999;
+            z-index: 99999;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
         .intro-scene.hidden {
@@ -48,18 +48,17 @@
 
         .intro-title {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.4rem;
+            font-size: 2.5rem;
             color: #d81b60;
             margin-bottom: 15px;
             font-weight: 700;
             text-shadow: 0 2px 10px rgba(216, 27, 96, 0.2);
-            animation: fadeInDown 1s ease;
         }
 
         .map-container {
             position: relative;
-            width: 220px;
-            height: 380px;
+            width: 200px;
+            height: 350px;
         }
 
         .vietnam-map-svg {
@@ -69,51 +68,50 @@
 
         .flying-plane {
             position: absolute;
-            font-size: 26px;
-            animation: flyNorthToSouth 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            font-size: 24px;
+            animation: flyNorthToSouth 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             z-index: 2;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
         }
 
         @keyframes flyNorthToSouth {
-            0% { top: 0px; left: 60px; transform: rotate(50deg) scale(0.8); }
-            35% { top: 110px; left: 100px; transform: rotate(65deg) scale(1); }
-            70% { top: 250px; left: 80px; transform: rotate(20deg) scale(1); }
-            100% { top: 350px; left: 100px; transform: rotate(45deg) scale(0.9); }
+            0% { top: 0px; left: 50px; transform: rotate(45deg) scale(0.8); }
+            50% { top: 180px; left: 90px; transform: rotate(30deg) scale(1); }
+            100% { top: 320px; left: 80px; transform: rotate(50deg) scale(0.9); }
         }
 
         .node-north {
-            position: absolute; top: -12px; left: 20px;
-            font-size: 0.85rem; font-weight: 700; color: #b71c1c;
-            background: rgba(255,255,255,0.7); padding: 2px 8px; border-radius: 10px;
+            position: absolute; top: -10px; left: 10px;
+            font-size: 0.8rem; font-weight: 700; color: #b71c1c;
+            background: rgba(255,255,255,0.8); padding: 2px 8px; border-radius: 10px;
         }
 
         .node-south {
-            position: absolute; bottom: -12px; right: 5px;
-            font-size: 0.85rem; font-weight: 700; color: #b71c1c;
-            background: rgba(255,255,255,0.7); padding: 2px 8px; border-radius: 10px;
+            position: absolute; bottom: -10px; right: 0px;
+            font-size: 0.8rem; font-weight: 700; color: #b71c1c;
+            background: rgba(255,255,255,0.8); padding: 2px 8px; border-radius: 10px;
         }
 
-        .skip-intro-btn {
-            margin-top: 25px;
-            background: rgba(216, 27, 96, 0.15);
-            border: 2px solid #d81b60;
-            color: #d81b60;
-            padding: 8px 22px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .skip-intro-btn:hover {
+        .start-btn {
+            margin-top: 30px;
             background: #d81b60;
             color: #fff;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .start-btn:hover {
+            background: #ad1457;
             transform: scale(1.05);
         }
 
-        /* CONTAINER TRÁI TIM BAY BACKGROUND */
+        /* TRÁI TIM BAY BACKGROUND */
         #heartsContainer {
             position: fixed;
             top: 0; left: 0;
@@ -138,59 +136,24 @@
             100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* NỀN SÁNG MỀM MẠI KHI MỞ THƯ (KHÔNG BỊ TỐI ĐEN) */
-        .backdrop-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(2px);
-            z-index: 80;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .backdrop-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* KHUNG CHÍNH + ANIMATION PHONG BÌ BAY TỪ NGOÀI VÀO (KÍCH HOẠT SAU INTRO) */
+        /* KHUNG BAO PHONG BÌ CHÍNH */
         .main-wrapper {
             position: relative;
             z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
-            opacity: 0;
-            transform: translateY(100vh) scale(0.3) rotate(-15deg);
         }
 
-        .main-wrapper.fly-in-active {
-            animation: envelopeFlyIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes envelopeFlyIn {
-            0% {
-                transform: translateY(100vh) scale(0.3) rotate(-15deg);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-        }
-
-        /* BÌ THƯ TO CÂN ĐỐI (560px x 360px) */
+        /* PHONG BÌ (HOÀN TOÀN SÁNG, KHÔNG TỐI NỀN) */
         .envelope-box {
             position: relative;
-            width: 560px;
-            height: 360px;
+            width: 540px;
+            height: 340px;
             background-color: #fce4ec;
             border-bottom-left-radius: 16px;
             border-bottom-right-radius: 16px;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             cursor: pointer;
         }
 
@@ -198,27 +161,27 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: #f8bbd0;
+            background: #f48fb1;
             border-radius: 16px;
             z-index: 1;
         }
 
-        /* LÁ THƯ BAN ĐẦU NẰM TRONG PHONG BÌ */
+        /* LÁ THƯ BÊN TRONG */
         .letter {
             position: absolute;
             bottom: 12px;
             left: 20px;
-            width: 520px;
-            height: 330px;
+            width: 500px;
+            height: 310px;
             background: #fffdf5;
             background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
-            background-size: 100% 32px;
-            border-radius: 12px;
-            padding: 24px;
+            background-size: 100% 30px;
+            border-radius: 10px;
+            padding: 22px;
             border: 1px solid #e0d5c1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             z-index: 2;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.45s cubic-bezier(0.25, 1, 0.5, 1);
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -226,15 +189,15 @@
         /* NÚT ĐÓNG X GÓC THƯ */
         .close-btn-x {
             position: absolute;
-            top: 14px; right: 18px;
-            width: 36px; height: 36px;
-            background: rgba(216, 27, 96, 0.12);
+            top: 12px; right: 16px;
+            width: 34px; height: 34px;
+            background: rgba(216, 27, 96, 0.1);
             color: #d81b60;
             border: none; border-radius: 50%;
-            font-size: 18px; font-weight: bold;
+            font-size: 16px; font-weight: bold;
             cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            z-index: 10;
+            z-index: 15;
             transition: background 0.2s, transform 0.2s;
         }
 
@@ -246,19 +209,19 @@
 
         .letter-stamp {
             position: absolute;
-            top: 16px; right: 65px;
-            width: 36px; height: 36px;
+            top: 14px; right: 60px;
+            width: 32px; height: 32px;
             background: radial-gradient(circle, #d32f2f, #8e0000);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 15px;
+            color: #fff; font-size: 14px;
         }
 
         .letter-content {
             font-family: 'Dancing Script', cursive;
             color: #2b1704;
             opacity: 0;
-            transition: opacity 0.35s ease;
+            transition: opacity 0.3s ease;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -266,14 +229,14 @@
         }
 
         .letter-content h3 {
-            font-size: 2rem;
+            font-size: 1.9rem;
             color: #b71c1c;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .typed-text {
-            font-size: 1.45rem;
-            line-height: 1.55;
+            font-size: 1.35rem;
+            line-height: 1.5;
             white-space: pre-line;
             font-weight: 600;
         }
@@ -281,24 +244,24 @@
         .signature {
             text-align: right;
             font-weight: 700;
-            font-size: 1.45rem;
+            font-size: 1.35rem;
             color: #8e0000;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .btn-pack {
             background: #d81b60;
             color: #fff;
             border: none;
-            padding: 9px 24px;
+            padding: 8px 22px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            margin: 10px auto 0 auto;
+            margin: 5px auto 0 auto;
             display: block;
-            box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
+            box-shadow: 0 3px 10px rgba(216, 27, 96, 0.3);
             transition: transform 0.2s, background 0.2s;
         }
 
@@ -308,36 +271,32 @@
         }
 
         /* TÚI MẶT TRƯỚC PHONG BÌ */
-        .envelope-pocket {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 100%;
+        .envelope-pocket-left {
+            position: absolute; top: 0; left: 0;
+            border-left: 270px solid #f48fb1;
+            border-top: 170px solid transparent;
+            border-bottom: 170px solid transparent;
+            border-bottom-left-radius: 16px;
             z-index: 4;
             pointer-events: none;
         }
 
-        .envelope-pocket::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            border-left: 280px solid #f48fb1;
-            border-top: 180px solid transparent;
-            border-bottom: 180px solid transparent;
-            border-bottom-left-radius: 16px;
-        }
-
-        .envelope-pocket::after {
-            content: ''; position: absolute; top: 0; right: 0;
-            border-right: 280px solid #f06292;
-            border-top: 180px solid transparent;
-            border-bottom: 180px solid transparent;
+        .envelope-pocket-right {
+            position: absolute; top: 0; right: 0;
+            border-right: 270px solid #f06292;
+            border-top: 170px solid transparent;
+            border-bottom: 170px solid transparent;
             border-bottom-right-radius: 16px;
+            z-index: 4;
+            pointer-events: none;
         }
 
         .envelope-bottom {
             position: absolute;
             bottom: 0; left: 0;
-            border-bottom: 190px solid #ec407a;
-            border-left: 280px solid transparent;
-            border-right: 280px solid transparent;
+            border-bottom: 180px solid #ec407a;
+            border-left: 270px solid transparent;
+            border-right: 270px solid transparent;
             z-index: 5;
             border-bottom-left-radius: 16px;
             border-bottom-right-radius: 16px;
@@ -348,9 +307,11 @@
         .envelope-flap {
             position: absolute;
             top: 0; left: 0;
-            border-top: 200px solid #d81b60;
-            border-left: 280px solid transparent;
-            border-right: 280px solid transparent;
+            width: 100%;
+            height: 0;
+            border-top: 190px solid #d81b60;
+            border-left: 270px solid transparent;
+            border-right: 270px solid transparent;
             transform-origin: top;
             transition: transform 0.4s ease-in-out;
             z-index: 6;
@@ -358,14 +319,14 @@
 
         .wax-seal {
             position: absolute;
-            top: 130px; left: 50%;
+            top: 120px; left: 50%;
             transform: translateX(-50%);
-            width: 52px; height: 52px;
+            width: 48px; height: 48px;
             background: radial-gradient(circle, #ff1744, #880e4f);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            color: #fff; font-size: 22px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
             z-index: 7;
             transition: opacity 0.2s ease;
         }
@@ -374,13 +335,13 @@
             margin-top: 25px;
             color: #d81b60;
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1rem;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
             0%, 100% { transform: translateY(0); opacity: 0.8; }
-            50% { transform: translateY(-6px); opacity: 1; }
+            50% { transform: translateY(-5px); opacity: 1; }
         }
 
         /* NÚT BẬT NHẠC */
@@ -389,113 +350,120 @@
             bottom: 20px; left: 20px;
             background: #fff;
             border: 2px solid #d81b60;
-            padding: 10px 22px; border-radius: 30px;
-            cursor: pointer; font-size: 0.9rem; font-weight: 600; color: #d81b60;
-            z-index: 200; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            display: flex; align-items: center; gap: 8px;
+            padding: 8px 18px; border-radius: 30px;
+            cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #d81b60;
+            z-index: 200; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex; align-items: center; gap: 6px;
             transition: transform 0.2s;
         }
 
         .music-control:hover { transform: scale(1.05); }
 
-        /* ----- HIỆU ỨNG MỞ THƯ AUTO-RESPONSIVE KHÔNG TRÀN MÀN HÌNH ----- */
+        /* ----- TRẠNG THÁI MỞ & ĐÓNG THƯ (KHÔNG LỆCH LAYER) ----- */
 
-        .flap-open .envelope-flap {
+        /* 1. Mở nắp */
+        .envelope-box.flap-open .envelope-flap {
             transform: rotateX(180deg);
             z-index: 1;
         }
-
-        .flap-open .wax-seal { opacity: 0; }
-
-        /* Rút lá thư trượt nhô lên */
-        .letter-slid-up .letter {
-            transform: translateY(-260px);
+        .envelope-box.flap-open .wax-seal {
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .letter-in-front .letter {
-            z-index: 100 !important;
+        /* 2. Trượt thư nhô lên khỏi túi */
+        .envelope-box.letter-slid-up .letter {
+            transform: translateY(-210px);
         }
 
-        /* BUNG THƯ VỪA VẶN MÀN HÌNH (MAX 90VW / 85VH) */
-        .letter-zoomed .letter {
+        /* 3. Phóng to thư ra giữa màn hình (Nằm trên cùng hoàn toàn) */
+        .envelope-box.letter-zoomed .letter {
             position: fixed !important;
             top: 50% !important;
             left: 50% !important;
-            width: 680px !important;
+            width: 660px !important;
             max-width: 90vw !important;
-            height: 480px !important;
+            height: 460px !important;
             max-height: 85vh !important;
             transform: translate(-50%, -50%) !important;
             padding: 28px 32px !important;
             background-size: 100% 32px !important;
-            z-index: 1000 !important;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3) !important;
+            z-index: 999999 !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25) !important;
             overflow-y: auto !important;
         }
 
-        .letter-zoomed .letter-content { opacity: 1; }
+        .envelope-box.letter-zoomed .letter-content {
+            opacity: 1;
+        }
 
-        /* ĐIỆN THOẠI & MÀN HÌNH NHỎ */
-        @media (max-width: 650px) {
+        /* RESPONSIVE DI ĐỘNG */
+        @media (max-width: 600px) {
             .envelope-box {
-                width: 92vw;
-                height: 59vw;
+                width: 90vw;
+                height: 56vw;
             }
-            .envelope-pocket::before, .envelope-pocket::after,
-            .envelope-bottom, .envelope-flap {
-                border-left-width: 46vw !important;
-                border-right-width: 46vw !important;
+            .envelope-pocket-left, .envelope-pocket-right {
+                border-left-width: 45vw !important;
+                border-right-width: 45vw !important;
+                border-top-width: 28vw !important;
+                border-bottom-width: 28vw !important;
             }
-            .envelope-pocket::before, .envelope-pocket::after {
-                border-top-width: 30vw !important;
+            .envelope-bottom {
                 border-bottom-width: 30vw !important;
+                border-left-width: 45vw !important;
+                border-right-width: 45vw !important;
             }
-            .envelope-bottom { border-bottom-width: 31vw !important; }
-            .envelope-flap { border-top-width: 33vw !important; }
-            .wax-seal { top: 21vw; width: 44px; height: 44px; font-size: 20px; }
+            .envelope-flap {
+                border-top-width: 32vw !important;
+                border-left-width: 45vw !important;
+                border-right-width: 45vw !important;
+            }
+            .wax-seal { top: 19vw; width: 40px; height: 40px; font-size: 18px; }
 
             .letter {
-                width: 84vw;
-                height: 53vw;
+                width: 82vw;
+                height: 50vw;
                 left: 4vw;
             }
 
-            .letter-zoomed .letter {
+            .envelope-box.letter-zoomed .letter {
                 width: 92vw !important;
-                height: 80vh !important;
+                height: 78vh !important;
                 padding: 20px !important;
             }
-            .typed-text { font-size: 1.25rem; }
-            .letter-content h3 { font-size: 1.6rem; }
+            .typed-text { font-size: 1.2rem; }
+            .letter-content h3 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- INTRO: CẢNH ĐẤT NƯỚC VIỆT NAM & MÁY BAY BẮC - NAM -->
+    <!-- INTRO CHÀO MỪNG (BẤM ĐỂ BẮT ĐẦU) -->
     <div class="intro-scene" id="introScene">
         <div class="intro-title">🇻🇳 Hành trình từ Bắc vào Nam...</div>
         <div class="map-container">
-            <svg class="vietnam-map-svg" viewBox="0 0 200 380" width="100%" height="100%">
-                <path d="M 70 30 Q 110 120, 90 210 T 100 350" fill="none" stroke="rgba(216, 27, 96, 0.35)" stroke-width="4" stroke-dasharray="6,6"/>
+            <svg class="vietnam-map-svg" viewBox="0 0 200 350" width="100%" height="100%">
+                <path d="M 60 20 Q 100 110, 80 190 T 90 320" fill="none" stroke="rgba(216, 27, 96, 0.4)" stroke-width="4" stroke-dasharray="6,6"/>
             </svg>
-            <div class="flying-plane" id="flyingPlane">✈️</div>
+            <div class="flying-plane">✈️</div>
             <div class="node-north">📍 Hà Nội</div>
             <div class="node-south">📍 TP. Hồ Chí Minh</div>
         </div>
-        <button class="skip-intro-btn" onclick="startMainScene()">Khám phá ngay ➔</button>
+        <button class="start-btn" onclick="startMainScene()">Khám phá ngay ➔</button>
     </div>
 
+    <!-- TRÁI TIM BAY -->
     <div id="heartsContainer"></div>
 
-    <div class="backdrop-overlay" id="backdropOverlay" onclick="closeEnvelope(event)"></div>
-
+    <!-- NÚT NHẠC -->
     <button class="music-control" onclick="toggleMusic()">
         <span id="musicIcon">🎵</span> <span id="musicText">Bật Nhạc (My Love Mine All Mine)</span>
     </button>
 
     <audio id="bgMusic" preload="auto" loop src="https://ia801503.us.archive.org/15/items/mitski-my-love-mine-all-mine/Mitski%20-%20My%20Love%20Mine%20All%20Mine.mp3"></audio>
 
+    <!-- KHUNG CHÍNH PHONG BÌ -->
     <div class="main-wrapper" id="mainWrapper">
         <div class="envelope-box" id="envelopeBox" onclick="openEnvelope()">
             <div class="envelope-back"></div>
@@ -512,12 +480,13 @@
 
                     <div>
                         <div class="signature">Thân mến,<br>[Tên Của Bạn]</div>
-                        <button class="btn-pack" onclick="closeEnvelope(event)">Gấp & nhét vào phong bì ✉️</button>
+                        <button class="btn-pack" onclick="closeEnvelope(event)">Gấp lại & nhét vào thư ✉️</button>
                     </div>
                 </div>
             </div>
 
-            <div class="envelope-pocket"></div>
+            <div class="envelope-pocket-left"></div>
+            <div class="envelope-pocket-right"></div>
             <div class="envelope-bottom"></div>
             <div class="envelope-flap"></div>
             <div class="wax-seal">❤️</div>
@@ -535,26 +504,13 @@
         let musicPlaying = false;
         let fadeInterval = null;
 
-        // TỰ ĐỘNG CHUYỂN CẢNH TỪ INTRO SANG PHONG BÌ SAU 3.5 GIÂY HOẶC KHI BẤM NÚT
+        // VÀO MÀN HÌNH CHÍNH KHI BẤM NÚT
         function startMainScene() {
             const intro = document.getElementById('introScene');
-            if (intro.classList.contains('hidden')) return;
-
             intro.classList.add('hidden');
-            setTimeout(() => {
-                intro.style.display = 'none';
-                // Kích hoạt hiệu ứng phong bì bay vào từ ngoài màn hình
-                document.getElementById('mainWrapper').classList.add('fly-in-active');
-            }, 800);
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                startMainScene();
-            }, 3600);
-        });
-
-        // HIỆU ỨNG TẠO TRÁI TIM BAY BACKGROUND CONTINUOUS
+        // TẠO TRÁI TIM BAY LIÊN TỤC
         function createFloatingHeart() {
             const container = document.getElementById('heartsContainer');
             if (!container) return;
@@ -574,7 +530,6 @@
             heart.style.animationDuration = `${randomDuration}s`;
 
             container.appendChild(heart);
-
             setTimeout(() => { heart.remove(); }, randomDuration * 1000);
         }
 
@@ -596,7 +551,7 @@
             typeWriter();
         }
 
-        // BẮT ĐẦU VÀO NHẠC VỚI FADE-IN TỪ GIÂY 18
+        // PHÁT NHẠC FADE-IN TỪ GIÂY 18
         function playPreChorusMusic() {
             if (!musicPlaying) {
                 clearInterval(fadeInterval);
@@ -620,79 +575,64 @@
                     }, 75);
 
                 }).catch((err) => {
-                    console.log("Cần tương tác mở thư để phát nhạc:", err);
+                    console.log("Cần tương tác người dùng để phát nhạc:", err);
                 });
             }
         }
 
-        // MỞ THƯ
+        // MỞ THƯ THEO THỨ TỰ CHUẨN XÁC (TRÁNH CHỒNG LAYER)
         function openEnvelope() {
             playPreChorusMusic();
-
             if (isAnimating) return;
+            
             const box = document.getElementById('envelopeBox');
-            const overlay = document.getElementById('backdropOverlay');
-
             if (!box.classList.contains('flap-open')) {
                 isAnimating = true;
 
-                // 1. Mở nắp phong bì
+                // Bước 1: Mở nắp phong bì
                 box.classList.add('flap-open');
 
-                // 2. Rút lá thư trượt nhô lên
+                // Bước 2: Trượt lá thư nhô lên khỏi túi
                 setTimeout(() => {
                     box.classList.add('letter-slid-up');
+                }, 350);
 
-                    // 3. Đưa layer lá thư lên trên mặt phong bì
-                    setTimeout(() => {
-                        box.classList.add('letter-in-front');
-
-                        // 4. Bung thư thành cửa sổ nổi sắc nét & gõ chữ
-                        setTimeout(() => {
-                            box.classList.add('letter-zoomed');
-                            overlay.classList.add('active');
-                            startTyping();
-                            isAnimating = false;
-                        }, 50);
-
-                    }, 450);
-
-                }, 400);
+                // Bước 3: Phóng to lá thư ra giữa màn hình
+                setTimeout(() => {
+                    box.classList.add('letter-zoomed');
+                    startTyping();
+                    isAnimating = false;
+                }, 750);
             }
         }
 
-        // ĐÓNG THƯ
+        // ĐÓNG THƯ THEO THỨ TỰ NGƯỢC LẠI (TRÁNH CHỒNG LAYER)
         function closeEnvelope(e) {
             if (e) e.stopPropagation();
             if (isAnimating) return;
-
+            
             isAnimating = true;
             const box = document.getElementById('envelopeBox');
-            const overlay = document.getElementById('backdropOverlay');
 
             clearTimeout(typeTimer);
             document.getElementById('typedText').textContent = "";
-            overlay.classList.remove('active');
 
+            // Bước 1: Thu nhỏ thư về vị trí phong bì
             box.classList.remove('letter-zoomed');
 
+            // Bước 2: Trượt thư tụt xuống lại vào trong túi
             setTimeout(() => {
-                box.classList.remove('letter-in-front');
+                box.classList.remove('letter-slid-up');
+            }, 400);
 
-                setTimeout(() => {
-                    box.classList.remove('letter-slid-up');
-
-                    setTimeout(() => {
-                        box.classList.remove('flap-open');
-                        isAnimating = false;
-                    }, 450);
-
-                }, 50);
-
-            }, 500);
+            // Bước 3: Đóng nắp phong bì lại
+            setTimeout(() => {
+                box.classList.remove('flap-open');
+                isAnimating = false;
+            }, 800);
         }
 
-        // NÚT ĐIỀU KHIỂN NHẠC
+        // ĐIỀU KHIỂN NÚT NHẠC
         function toggleMusic() {
             if (musicPlaying) {
                 bgMusic.pause();
