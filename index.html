@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phong Bì & Lá Thư - Sharp & Fixed Audio</title>
+    <title>Phong Bì & Lá Thư - HD Sharp & Audio Fade-In</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -26,7 +26,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* NỀN TỐI CHE TOÀN MÀN HÌNH */
+        /* NỀN TỐI CHE TOÀN MÀN HÌNH KHI MỞ THƯ */
         .backdrop-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -35,7 +35,7 @@
             z-index: 80;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
         }
 
         .backdrop-overlay.active {
@@ -73,22 +73,28 @@
             z-index: 1;
         }
 
-        /* LÁ THƯ BAN ĐẦU NẰM TRONG PHONG BÌ */
+        /* LÁ THƯ TĂNG KÍCH THƯỚC LỚN (760px x 480px) & NÉT 100% */
         .letter {
             position: absolute;
-            bottom: 12px;
-            left: 20px;
-            width: 320px;
-            height: 215px;
+            bottom: 10px;
+            left: 50%;
+            width: 760px;
+            height: 480px;
+            margin-left: -380px;
             background: #fffdf5;
             background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
-            background-size: 100% 28px;
-            border-radius: 12px;
-            padding: 18px;
+            background-size: 100% 34px;
+            border-radius: 14px;
+            padding: 32px 36px;
             border: 1px solid #e0d5c1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             z-index: 2;
-            transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease, top 0.4s ease, left 0.4s ease;
+            
+            /* Ban đầu thu nhỏ bằng scale(0.42) để nhét vừa phong bì */
+            transform: translateY(0) scale(0.42);
+            transform-origin: bottom center;
+            /* Transition mượt mà 0.6 giây */
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -96,43 +102,45 @@
         /* NÚT ĐÓNG X GÓC THƯ */
         .close-btn-x {
             position: absolute;
-            top: 12px;
-            right: 15px;
-            width: 32px;
-            height: 32px;
+            top: 14px;
+            right: 18px;
+            width: 36px;
+            height: 36px;
             background: rgba(216, 27, 96, 0.12);
             color: #d81b60;
             border: none;
             border-radius: 50%;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 10;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .close-btn-x:hover {
             background: #d81b60;
             color: #fff;
+            transform: scale(1.1);
         }
 
         .letter-stamp {
             position: absolute;
-            top: 14px; right: 55px;
-            width: 32px; height: 32px;
+            top: 16px; right: 65px;
+            width: 36px; height: 36px;
             background: radial-gradient(circle, #d32f2f, #8e0000);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 13px;
+            color: #fff; font-size: 14px;
         }
 
         .letter-content {
             font-family: 'Dancing Script', cursive;
             color: #2b1704;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -140,23 +148,23 @@
         }
 
         .letter-content h3 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: #b71c1c;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .typed-text {
-            font-size: 1.35rem;
-            line-height: 1.5;
+            font-size: 1.6rem;
+            line-height: 1.6;
             white-space: pre-line;
-            min-height: 140px;
+            min-height: 220px;
             font-weight: 600;
         }
 
         .signature {
             text-align: right;
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             color: #8e0000;
         }
 
@@ -164,15 +172,21 @@
             background: #d81b60;
             color: #fff;
             border: none;
-            padding: 8px 22px;
+            padding: 10px 26px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            margin: 4px auto 0 auto;
+            margin: 6px auto 0 auto;
             display: block;
-            box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
+            box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-pack:hover {
+            background: #c2185b;
+            transform: scale(1.05);
         }
 
         /* TÚI MẶT TRƯỚC PHONG BÌ */
@@ -261,9 +275,14 @@
             cursor: pointer; font-size: 0.9rem; font-weight: 600; color: #d81b60;
             z-index: 200; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             display: flex; align-items: center; gap: 8px;
+            transition: transform 0.2s;
         }
 
-        /* ----- HIỆU ỨNG MỞ THƯ HOÀN HẢO KHÔNG BỊ MỜ ----- */
+        .music-control:hover {
+            transform: scale(1.05);
+        }
+
+        /* ----- HIỆU ỨNG MỞ THƯ TRANSITION MƯỢT & SẮC NÉT ----- */
 
         .flap-open .envelope-flap {
             transform: rotateX(180deg);
@@ -274,41 +293,38 @@
             opacity: 0;
         }
 
-        /* Bước rút lá thư nhô lên */
+        /* Rút lá thư trượt nhô lên */
         .letter-slid-up .letter {
-            transform: translateY(-210px);
+            transform: translateY(-210px) scale(0.42);
         }
 
         .letter-in-front .letter {
             z-index: 100 !important;
         }
 
-        /* THƯ BUNG TẠI TRUNG TÂM MÀN HÌNH CHUẨN NATIVE (SẮC NÉT 100%) */
+        /* PHÓNG TO THƯ BUNG RỘNG CỰC SẮC NÉT (scale(1) CHUẨN ĐỘ PHÂN GIẢI GỐC) */
         .letter-zoomed .letter {
-            position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            width: 550px !important;
-            height: 370px !important;
-            padding: 28px !important;
-            background-size: 100% 32px !important;
-            z-index: 1000 !important;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+            transform: translateY(-270px) scale(1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
         }
 
         .letter-zoomed .letter-content {
             opacity: 1;
         }
 
-        @media (max-width: 600px) {
-            .letter-zoomed .letter {
-                width: 92vw !important;
-                height: 380px !important;
-                padding: 20px !important;
+        /* ĐIỆN THOẠI & MÀN HÌNH NHỎ */
+        @media (max-width: 800px) {
+            .letter {
+                width: 90vw;
+                height: 460px;
+                margin-left: -45vw;
+                padding: 22px;
             }
-            .typed-text { font-size: 1.15rem; min-height: 120px; }
-            .letter-content h3 { font-size: 1.5rem; }
+            .typed-text { font-size: 1.3rem; min-height: 180px; }
+            .letter-content h3 { font-size: 1.7rem; }
+            .letter-zoomed .letter {
+                transform: translateY(-160px) scale(1);
+            }
         }
     </style>
 </head>
@@ -359,6 +375,7 @@
         let isAnimating = false;
         const bgMusic = document.getElementById('bgMusic');
         let musicPlaying = false;
+        let fadeInterval = null;
 
         function typeWriter() {
             const container = document.getElementById('typedText');
@@ -376,23 +393,39 @@
             typeWriter();
         }
 
-        // KÍCH HOẠT NHẠC Ở GIÂY THỨ 18 (ĐOẠN TRƯỚC ĐIỆP KHÚC)
+        // BẮT ĐẦU VÀO NHẠC VỚI HIỆU ỨNG TĂNG ÂM LƯỢNG TỪ TỪ (VOLUME FADE-IN TRANSITION)
         function playPreChorusMusic() {
             if (!musicPlaying) {
-                bgMusic.currentTime = 18; // Lùi về giây thứ 18 trước khi tới điệp khúc
+                clearInterval(fadeInterval);
+                bgMusic.volume = 0; // Âm lượng bắt đầu từ 0
+                bgMusic.currentTime = 18; // Nhảy đến đoạn 0:18 trước điệp khúc
+                
                 bgMusic.play().then(() => {
+                    musicPlaying = true;
                     document.getElementById('musicIcon').textContent = '🎶';
                     document.getElementById('musicText').textContent = 'Đang phát: My Love Mine All Mine';
-                    musicPlaying = true;
+
+                    // Tăng dần âm lượng từ 0 lên 100% trong vòng 1.5 giây
+                    let vol = 0;
+                    fadeInterval = setInterval(() => {
+                        if (vol < 1) {
+                            vol += 0.05;
+                            if (vol > 1) vol = 1;
+                            bgMusic.volume = vol;
+                        } else {
+                            clearInterval(fadeInterval);
+                        }
+                    }, 75);
+
                 }).catch((err) => {
-                    console.log("Cần nhấp trực tiếp nút để bật nhạc:", err);
+                    console.log("Cần tương tác mở thư để phát nhạc:", err);
                 });
             }
         }
 
         // MỞ THƯ
         function openEnvelope() {
-            playPreChorusMusic(); // Phát nhạc ngay khi chạm vào phong bì
+            playPreChorusMusic(); // Phát nhạc kèm fade-in khi bấm mở
 
             if (isAnimating) return;
             const box = document.getElementById('envelopeBox');
@@ -404,15 +437,15 @@
                 // 1. Mở nắp phong bì
                 box.classList.add('flap-open');
 
-                // 2. Rút lá thư trượt lên
+                // 2. Rút lá thư trượt nhô lên
                 setTimeout(() => {
                     box.classList.add('letter-slid-up');
 
-                    // 3. Đưa layer lá thư lên trên phong bì
+                    // 3. Đưa layer lá thư lên trên mặt phong bì
                     setTimeout(() => {
                         box.classList.add('letter-in-front');
 
-                        // 4. Bung thư thành cửa sổ nổi sắc nét & bật gõ chữ
+                        // 4. Phóng to bức thư to rộng mượt mà & gõ chữ
                         setTimeout(() => {
                             box.classList.add('letter-zoomed');
                             overlay.classList.add('active');
@@ -454,10 +487,10 @@
 
                 }, 50);
 
-            }, 450);
+            }, 550);
         }
 
-        // NÚT ĐIỀU KHIỂN NHẠC
+        // NÚT ĐIỀU KHIỂN NHẠC THỦ CÔNG
         function toggleMusic() {
             if (musicPlaying) {
                 bgMusic.pause();
