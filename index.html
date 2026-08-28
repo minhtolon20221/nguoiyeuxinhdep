@@ -13,14 +13,15 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* NGĂN CUỘN TRANG HOÀN TOÀN */
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             position: relative;
         }
 
@@ -33,13 +34,13 @@
             align-items: center;
         }
 
-        /* LỚP MÀN MỜ PHÍA SAU KHI MỞ THƯ TO */
+        /* LỚP MÀN MỜ PHÍA SAU KHI MỞ THƯ */
         .backdrop-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
             z-index: 80;
             opacity: 0;
             pointer-events: none;
@@ -51,15 +52,15 @@
             pointer-events: auto;
         }
 
-        /* PHONG BÌ */
+        /* PHONG BÌ (TĂNG KÍCH THƯỚC VẬT LÝ LÊN 380x250px) */
         .envelope-box {
             position: relative;
-            width: 320px;
-            height: 210px;
+            width: 380px;
+            height: 250px;
             background-color: #fce4ec;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.2);
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            box-shadow: 0 18px 40px rgba(216, 27, 96, 0.22);
             cursor: pointer;
         }
 
@@ -69,27 +70,27 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: #f8bbd0;
-            border-radius: 12px;
+            border-radius: 14px;
             z-index: 1;
         }
 
-        /* LÁ THƯ (MẶC ĐỊNH NẰM TRONG TÚI PHONG BÌ) */
+        /* LÁ THƯ (TĂNG KÍCH THƯỚC GIẤY LÊN 340x220px) */
         .letter {
             position: absolute;
-            bottom: 10px;
-            left: 15px;
-            width: 290px;
-            height: 190px;
+            bottom: 12px;
+            left: 20px;
+            width: 340px;
+            height: 220px;
             background: #fffdf5;
             background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
-            background-size: 100% 26px;
+            background-size: 100% 28px;
             border-radius: 12px;
-            padding: 18px;
+            padding: 22px;
             border: 1px solid #e0d5c1;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             z-index: 2;
             transform: translateY(0) scale(1);
-            transition: transform 0.5s cubic-bezier(0.34, 1.25, 0.64, 1), box-shadow 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.34, 1.15, 0.64, 1), box-shadow 0.5s ease;
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -97,15 +98,15 @@
         /* NÚT ĐÓNG (X) GÓC TRÊN LÁ THƯ */
         .close-btn-x {
             position: absolute;
-            top: 8px;
-            right: 12px;
-            width: 26px;
-            height: 26px;
-            background: rgba(216, 27, 96, 0.1);
+            top: 10px;
+            right: 14px;
+            width: 28px;
+            height: 28px;
+            background: rgba(216, 27, 96, 0.12);
             color: #d81b60;
             border: none;
             border-radius: 50%;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -123,12 +124,12 @@
 
         .letter-stamp {
             position: absolute;
-            top: 10px; right: 45px;
-            width: 26px; height: 26px;
+            top: 12px; right: 50px;
+            width: 30px; height: 30px;
             background: radial-gradient(circle, #d32f2f, #8e0000);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 11px;
+            color: #fff; font-size: 12px;
         }
 
         .letter-content {
@@ -143,22 +144,22 @@
         }
 
         .letter-content h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #b71c1c;
             margin-bottom: 6px;
         }
 
         .typed-text {
-            font-size: 1.15rem;
-            line-height: 1.45;
+            font-size: 1.2rem;
+            line-height: 1.5;
             white-space: pre-line;
-            min-height: 95px;
+            min-height: 100px;
         }
 
         .signature {
             text-align: right;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #8e0000;
         }
 
@@ -166,9 +167,9 @@
             background: #d81b60;
             color: #fff;
             border: none;
-            padding: 6px 16px;
+            padding: 7px 18px;
             border-radius: 15px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
@@ -194,29 +195,29 @@
 
         .envelope-pocket::before {
             content: ''; position: absolute; top: 0; left: 0;
-            border-left: 160px solid #f48fb1;
-            border-top: 105px solid transparent;
-            border-bottom: 105px solid transparent;
-            border-bottom-left-radius: 12px;
+            border-left: 190px solid #f48fb1;
+            border-top: 125px solid transparent;
+            border-bottom: 125px solid transparent;
+            border-bottom-left-radius: 14px;
         }
 
         .envelope-pocket::after {
             content: ''; position: absolute; top: 0; right: 0;
-            border-right: 160px solid #f06292;
-            border-top: 105px solid transparent;
-            border-bottom: 105px solid transparent;
-            border-bottom-right-radius: 12px;
+            border-right: 190px solid #f06292;
+            border-top: 125px solid transparent;
+            border-bottom: 125px solid transparent;
+            border-bottom-right-radius: 14px;
         }
 
         .envelope-bottom {
             position: absolute;
             bottom: 0; left: 0;
-            border-bottom: 110px solid #ec407a;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
+            border-bottom: 130px solid #ec407a;
+            border-left: 190px solid transparent;
+            border-right: 190px solid transparent;
             z-index: 5;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
             pointer-events: none;
         }
 
@@ -224,9 +225,9 @@
         .envelope-flap {
             position: absolute;
             top: 0; left: 0;
-            border-top: 120px solid #d81b60;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
+            border-top: 140px solid #d81b60;
+            border-left: 190px solid transparent;
+            border-right: 190px solid transparent;
             transform-origin: top;
             transition: transform 0.4s ease-in-out;
             z-index: 6;
@@ -234,13 +235,13 @@
 
         .wax-seal {
             position: absolute;
-            top: 80px; left: 50%;
+            top: 92px; left: 50%;
             transform: translateX(-50%);
-            width: 44px; height: 44px;
+            width: 48px; height: 48px;
             background: radial-gradient(circle, #ff1744, #880e4f);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 18px;
+            color: #fff; font-size: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 7;
             transition: opacity 0.2s ease;
@@ -250,7 +251,7 @@
             margin-top: 35px;
             color: #d81b60;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
             animation: pulse 1.5s infinite;
         }
 
@@ -263,15 +264,15 @@
         .music-control {
             position: fixed;
             bottom: 20px; left: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255,255,255,0.6);
-            padding: 8px 16px; border-radius: 25px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255,255,255,0.7);
+            padding: 8px 18px; border-radius: 25px;
             cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #333;
-            z-index: 200; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 200; box-shadow: 0 4px 12px rgba(0,0,0,0.12);
             display: flex; align-items: center; gap: 6px;
         }
 
-        /* ----- CÁC BƯỚC CHUYỂN ĐỘNG (ANIMATION STATES) ----- */
+        /* ----- TRẠNG THÁI HIỆU ỨNG ----- */
 
         /* Bước 1: Mở nắp */
         .flap-open .envelope-flap {
@@ -286,7 +287,7 @@
 
         /* Bước 2: Rút lá thư lên trên */
         .letter-slid-up .letter {
-            transform: translateY(-170px) scale(1);
+            transform: translateY(-200px) scale(1);
         }
 
         /* Bước 3: Nâng Layer lá thư lên nổi hoàn toàn */
@@ -294,20 +295,30 @@
             z-index: 100 !important;
         }
 
-        /* Bước 4: PHÓNG TO SIÊU KHỦNG LÁ THƯ RA GIỮA MÀN HÌNH */
+        /* Bước 4: TỜ GIẤY PHÓNG TO VỪA ĐỦ MÀN HÌNH (KHÔNG BỊ TRÀO THANH CUỘN) */
         .letter-zoomed .letter {
-            transform: translateY(-10px) scale(2.9); /* Ph phóng to gấp 2.9 lần trên PC */
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            transform: translateY(-10px) scale(1.9); 
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
         }
 
         .letter-zoomed .letter-content {
             opacity: 1;
         }
 
-        /* Tối ưu phóng to chuẩn trên màn hình Điện thoại */
+        /* Tối ưu chuẩn trên màn hình Điện thoại */
         @media (max-width: 600px) {
+            .envelope-box {
+                width: 320px;
+                height: 210px;
+            }
+            .envelope-pocket::before { border-left-width: 160px; border-top-width: 105px; border-bottom-width: 105px; }
+            .envelope-pocket::after { border-right-width: 160px; border-top-width: 105px; border-bottom-width: 105px; }
+            .envelope-bottom { border-bottom-width: 110px; border-left-width: 160px; border-right-width: 160px; }
+            .envelope-flap { border-top-width: 120px; border-left-width: 160px; border-right-width: 160px; }
+            .letter { width: 290px; height: 190px; left: 15px; bottom: 10px; }
+
             .letter-zoomed .letter {
-                transform: translateY(-10px) scale(1.75); /* Phóng to vừa vặn khung hình điện thoại */
+                transform: translateY(-5px) scale(1.25);
             }
         }
     </style>
@@ -319,6 +330,7 @@
     <button class="music-control" onclick="toggleMusic()">
         <span id="musicIcon">🎵</span> <span id="musicText">My Love Mine All Mine</span>
     </button>
+
     <audio id="bgMusic" loop src="https://files.catbox.moe/8m9r1n.mp3"></audio>
 
     <div class="main-wrapper">
@@ -348,7 +360,7 @@
             <div class="wax-seal">❤️</div>
         </div>
 
-        <div class="click-hint" id="clickHint">✨ Bấm vào phong bì để mở thư ✨</div>
+        <div class="click-hint" id="clickHint">✨ Nhấp vào phong bì để mở thư ✨</div>
     </div>
 
     <script>
@@ -393,7 +405,7 @@
                     setTimeout(() => {
                         box.classList.add('letter-in-front');
 
-                        // 4. Phóng to lá thư siêu to & làm mờ nền + gõ chữ
+                        // 4. Phóng to lá thư & mở nền mờ + gõ chữ
                         setTimeout(() => {
                             box.classList.add('letter-zoomed');
                             overlay.classList.add('active');
@@ -408,7 +420,7 @@
             }
         }
 
-        // ĐÓNG THƯ (BẰNG NÚT X, NÚT DƯỚI HOẶC BẤM NỀN)
+        // ĐÓNG THƯ
         function closeEnvelope(e) {
             if (e) e.stopPropagation();
             if (isAnimating) return;
@@ -443,9 +455,19 @@
             }, 450);
         }
 
-        // ĐIỀU KHIỂN NHẠC
+        // ĐIỀU KHIỂN NHẠC (NHẢY THẲNG VÀO ĐOẠN ĐIỆP KHÚC HAY NHẤT)
         const bgMusic = document.getElementById('bgMusic');
         let musicPlaying = false;
+
+        function playChorus() {
+            // Nhảy trực tiếp đến 0:38 (Đoạn điệp khúc "Nothing in the world belongs to me...")
+            bgMusic.currentTime = 38;
+            bgMusic.play().then(() => {
+                document.getElementById('musicIcon').textContent = '🎶';
+                document.getElementById('musicText').textContent = 'Tắt nhạc';
+                musicPlaying = true;
+            }).catch(() => {});
+        }
 
         function toggleMusic() {
             if (musicPlaying) {
@@ -454,20 +476,13 @@
                 document.getElementById('musicText').textContent = 'My Love Mine All Mine';
                 musicPlaying = false;
             } else {
-                bgMusic.play();
-                document.getElementById('musicIcon').textContent = '🎶';
-                document.getElementById('musicText').textContent = 'Tắt nhạc';
-                musicPlaying = true;
+                playChorus();
             }
         }
 
         function playMusicAuto() {
             if (!musicPlaying) {
-                bgMusic.play().then(() => {
-                    document.getElementById('musicIcon').textContent = '🎶';
-                    document.getElementById('musicText').textContent = 'Tắt nhạc';
-                    musicPlaying = true;
-                }).catch(() => {});
+                playChorus();
             }
         }
     </script>
