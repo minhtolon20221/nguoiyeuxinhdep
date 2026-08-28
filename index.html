@@ -535,6 +535,14 @@
             transform: none !important;
         }
 
+        /* NỘI DUNG THƯ MỜ DẦN KHI ĐÓNG LẠI — đối xứng với hiệu ứng gõ chữ hiện dần lúc mở */
+        .envelope-box.letter-zoomed .letter-content.fading-out,
+        .letter-content.fading-out {
+            opacity: 0 !important;
+            transform: translateY(6px) !important;
+            transition: opacity 0.3s ease, transform 0.3s ease !important;
+        }
+
         /* RESPONSIVE DI ĐỘNG */
         @media (max-width: 600px) {
             .map-container { width: 94vw; height: min(112vw, 68vh); }
@@ -800,7 +808,8 @@
             }
         }
 
-        // ĐÓNG THƯ — chạy ngược đúng tuyến đường: giữa màn hình -> vị trí cũ -> trượt vào phong bì
+        // ĐÓNG THƯ — soi gương chính xác 4 bước của lúc MỞ (cùng thời lượng & cùng easing),
+        // chỉ chạy ngược thứ tự: mờ nội dung -> thu nhỏ về điểm xuất phát -> trượt xuống -> gập nắp lại
         function closeEnvelope(e) {
             if (e) e.stopPropagation();
             if (isAnimating) return;
@@ -809,31 +818,45 @@
             const box = document.getElementById('envelopeBox');
             const backdrop = document.getElementById('darkBackdrop');
             const letter = document.getElementById('letterCard');
+            const content = letter.querySelector('.letter-content');
 
-            clearTimeout(typeTimer);
-            document.getElementById('typedText').textContent = '';
-
-            // 1) Thu/phóng ngược về ĐÚNG vị trí mà lá thư từng được rút lên
-            box.classList.remove('letter-centered');
+            // 0) Mờ dần nội dung thư trước — đối xứng với việc chữ hiện dần lúc mở (startTyping)
+            content.classList.add('fading-out');
 
             setTimeout(() => {
-                // 2) Khi đã về đúng vị trí đó, đổi lại trạng thái absolute rồi trượt xuống phong bì
+                clearTimeout(typeTimer);
+                document.getElementById('typedText').textContent = '';
+
+                // 1) Thu/phóng ngược về ĐÚNG vị trí mà lá thư từng được rút lên (đối xứng bước "letter-centered")
+                box.classList.remove('letter-centered');
+            }, 300);
+
+            setTimeout(() => {
+                // 2) Khi đã về đúng vị trí đó, đổi lại trạng thái absolute rồi chuẩn bị trượt xuống phong bì
                 box.classList.remove('letter-zoomed');
-            }, 820);
-
-            setTimeout(() => {
-                box.classList.remove('letter-slid-up');
                 mainWrapper.classList.remove('letter-active');
                 backdrop.classList.remove('active');
-            }, 1580);
+            }, 300 + 820);
 
             setTimeout(() => {
+                // 3) Trượt nguyên lá thư xuống lại phong bì — ép cùng tốc độ 0.75s như lúc rút lên để hai chiều khớp nhau
+                letter.style.transition = 'transform 0.75s cubic-bezier(0.22, 0.85, 0.25, 1)';
+                box.classList.remove('letter-slid-up');
+            }, 300 + 820 + 60);
+
+            setTimeout(() => {
+                // 4) Gập nắp phong bì lại, đúng bằng tốc độ 0.4s lúc mở nắp
                 box.classList.remove('flap-open');
+            }, 300 + 820 + 60 + 780);
+
+            setTimeout(() => {
+                content.classList.remove('fading-out');
+                letter.style.transition = '';
                 letter.style.removeProperty('--letter-start-top');
                 letter.style.removeProperty('--letter-start-width');
                 letter.style.removeProperty('--letter-start-height');
                 isAnimating = false;
-            }, 2020);
+            }, 300 + 820 + 60 + 780 + 420);
         }
 
         // ĐIỀU KHIỂN NÚT NHẠC
