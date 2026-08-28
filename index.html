@@ -27,7 +27,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ----- MÀN HÌNH INTRO: CHỈ CÓ BẢN ĐỒ VIỆT NAM & MÁY BAY ----- */
+        /* ----- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM CHUẨN HÌNH CHỮ S & MÁY BAY ----- */
         .intro-scene {
             position: fixed;
             top: 0; left: 0;
@@ -49,8 +49,8 @@
 
         .map-container {
             position: relative;
-            width: 160px;
-            height: 380px;
+            width: 180px;
+            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -58,36 +58,36 @@
 
         .vietnam-map-svg {
             position: absolute;
-            top: 0; left: 0;
-            filter: drop-shadow(0 2px 6px rgba(216, 27, 96, 0.25));
+            top: 0; left: 15px;
+            filter: drop-shadow(0 3px 8px rgba(216, 27, 96, 0.3));
         }
 
         .flying-plane {
             position: absolute;
-            font-size: 26px;
-            animation: flyAlongVietnam 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            font-size: 28px;
+            animation: flyAlongVietnam 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             z-index: 3;
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
         }
 
         @keyframes flyAlongVietnam {
-            0%   { top: 15px;  left: 65px; transform: rotate(45deg) scale(0.8); }
-            35%  { top: 130px; left: 75px; transform: rotate(25deg) scale(1); }
-            70%  { top: 260px; left: 55px; transform: rotate(15deg) scale(1); }
-            100% { top: 350px; left: 45px; transform: rotate(45deg) scale(0.9); }
+            0%   { top: 20px;  left: 80px; transform: rotate(45deg) scale(0.8); }
+            35%  { top: 140px; left: 95px; transform: rotate(25deg) scale(1); }
+            70%  { top: 280px; left: 65px; transform: rotate(10deg) scale(1); }
+            100% { top: 370px; left: 55px; transform: rotate(45deg) scale(0.9); }
         }
 
         .node-north {
-            position: absolute; top: 5px; left: -18px;
+            position: absolute; top: 10px; left: 10px;
             font-size: 0.75rem; font-weight: 700; color: #b71c1c;
-            background: rgba(255,255,255,0.95); padding: 2px 6px; border-radius: 8px;
+            background: rgba(255,255,255,0.95); padding: 2px 8px; border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .node-south {
-            position: absolute; bottom: 10px; right: -25px;
+            position: absolute; bottom: 10px; right: 0px;
             font-size: 0.75rem; font-weight: 700; color: #b71c1c;
-            background: rgba(255,255,255,0.95); padding: 2px 6px; border-radius: 8px;
+            background: rgba(255,255,255,0.95); padding: 2px 8px; border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
@@ -135,13 +135,13 @@
             100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* LỚP TỐI (BACKDROP) PHÍA SAU KHI MỞ THƯ (XUNG QUANH TỐI) */
+        /* LỚP TỐI (BACKDROP) PHÍA SAU KHI MỞ THƯ */
         .dark-backdrop {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 900;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -153,7 +153,7 @@
             visibility: visible;
         }
 
-        /* KHUNG BAO PHONG BÌ (NẰM TRÊN BACKDROP ĐỂ KHÔNG BỊ TỐI NỘI DUNG) */
+        /* KHUNG BAO PHONG BÌ */
         .main-wrapper {
             position: relative;
             z-index: 1000;
@@ -182,18 +182,18 @@
             z-index: 1;
         }
 
-        /* LÁ THƯ (SẮC NÉT HOÀN TOÀN, SÁNG RÕ) */
+        /* LÁ THƯ (SÁNG RÕ, TUYỆT ĐỐI KHÔNG BỊ TỐI) */
         .letter {
             position: absolute;
             bottom: 12px;
             left: 20px;
             width: 500px;
             height: 310px;
-            background: #fffdf5;
-            background-image: linear-gradient(#e5ddd0 1px, transparent 1px);
+            background: #ffffff;
+            background-image: linear-gradient(#f0eada 1px, transparent 1px);
             background-size: 100% 30px;
             border-radius: 10px;
-            padding: 22px;
+            padding: 24px;
             border: 1px solid #dcd3c1;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             z-index: 2;
@@ -246,24 +246,24 @@
         }
 
         .letter-content h3 {
-            font-size: 2.1rem;
+            font-size: 2.2rem;
             color: #b71c1c;
             margin-bottom: 6px;
             font-weight: 700;
         }
 
         .typed-text {
-            font-size: 1.45rem;
+            font-size: 1.5rem;
             line-height: 1.5;
             white-space: pre-line;
             font-weight: 700;
-            color: #2b1704;
+            color: #1f1102;
         }
 
         .signature {
             text-align: right;
             font-weight: 700;
-            font-size: 1.45rem;
+            font-size: 1.5rem;
             color: #8e0000;
             margin-top: 5px;
         }
@@ -371,7 +371,7 @@
             border: 2px solid #d81b60;
             padding: 8px 18px; border-radius: 30px;
             cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #d81b60;
-            z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 20000; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             display: flex; align-items: center; gap: 6px;
             transition: transform 0.2s;
         }
@@ -401,16 +401,18 @@
             height: 460px !important;
             max-height: 85vh !important;
             transform: translate(-50%, -50%) translateZ(0) !important;
-            padding: 28px 32px !important;
-            background-size: 100% 32px !important;
-            z-index: 2000 !important;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4) !important;
+            padding: 30px 36px !important;
+            background-size: 100% 34px !important;
+            z-index: 95000 !important;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45) !important;
             overflow-y: auto !important;
+            background-color: #ffffff !important;
+            opacity: 1 !important;
             backface-visibility: hidden;
         }
 
         .envelope-box.letter-zoomed .letter-content {
-            opacity: 1;
+            opacity: 1 !important;
         }
 
         /* RESPONSIVE DI ĐỘNG */
@@ -455,19 +457,31 @@
 </head>
 <body>
 
-    <!-- LỚP NỀN TỐI KHI MỞ THƯ (XUNG QUANH TỐI) -->
+    <!-- LỚP NỀN TỐI XUNG QUANH KHI MỞ THƯ -->
     <div class="dark-backdrop" id="darkBackdrop"></div>
 
     <!-- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM CHUẨN HÌNH CHỮ S & MÁY BAY -->
     <div class="intro-scene" id="introScene">
         <div class="map-container">
-            <!-- SVG Bản đồ hình chữ S Việt Nam đặc trưng rõ ràng từ Bắc xuống Nam -->
-            <svg class="vietnam-map-svg" viewBox="0 0 140 380" width="130" height="350">
-                <!-- Miền Bắc: Phình to ở trên (Hà Nội/Đồng bằng sông Hồng) -->
-                <!-- Miền Trung: Thắt nhỏ uốn cong (Dải đất miền Trung) -->
-                <!-- Miền Nam: Phình rộng ra ở dưới (ĐBSCL/TP.HCM) -->
-                <path d="M 65,15 C 80,25 90,45 75,70 C 60,95 45,100 42,130 C 39,160 60,180 70,210 C 80,240 75,270 65,300 C 55,330 40,350 35,370" fill="none" stroke="rgba(216, 27, 96, 0.35)" stroke-width="8" stroke-linecap="round"/>
-                <path d="M 63,12 C 78,22 88,42 73,67 C 58,92 43,97 40,127 C 37,157 58,177 68,207 C 78,237 73,267 63,297 C 53,327 38,347 33,367 C 45,375 60,370 70,350 C 80,330 85,300 78,270 C 71,240 85,215 75,185 C 65,155 48,145 50,120 C 52,95 70,85 82,60 C 94,35 78,15 63,12 Z" fill="rgba(216, 27, 96, 0.22)" stroke="#d81b60" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- Bản đồ Việt Nam hình chữ S chuẩn xác (Bắc - Trung - Nam) -->
+            <svg class="vietnam-map-svg" viewBox="0 0 120 380" width="110" height="370">
+                <path d="M 50,15 
+                         C 75,20 85,35 80,55 
+                         C 75,75 55,85 50,110 
+                         C 45,135 60,150 70,180 
+                         C 80,210 85,230 75,260 
+                         C 65,290 50,310 40,335 
+                         C 32,355 45,375 60,375 
+                         C 70,375 75,360 70,340 
+                         C 62,310 75,280 85,255 
+                         C 95,230 90,200 80,170 
+                         C 70,140 55,125 58,100 
+                         C 60,75 72,60 68,45 
+                         C 64,30 40,25 50,15 Z" 
+                      fill="rgba(216, 27, 96, 0.25)" 
+                      stroke="#d81b60" 
+                      stroke-width="3" 
+                      stroke-linejoin="round"/>
             </svg>
             <div class="flying-plane">✈️</div>
             <div class="node-north">📍 Bắc</div>
