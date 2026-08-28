@@ -528,6 +528,23 @@
             transform: translate(-50%, -50%) !important;
         }
 
+        /* Khi đóng: đi ngược từ giữa màn hình về đúng điểm xuất phát bằng một transition duy nhất.
+           Nhờ giữ position:fixed trong toàn bộ phase này nên không còn hiện tượng khựng khi đổi layout. */
+        .envelope-box.letter-zoomed.letter-closing .letter {
+            left: 50% !important;
+            top: var(--letter-start-top, 0px) !important;
+            width: var(--letter-start-width, 500px) !important;
+            height: var(--letter-start-height, 310px) !important;
+            max-width: none !important;
+            max-height: none !important;
+            transform: translateX(-50%) !important;
+            transition: top 0.8s cubic-bezier(0.22, 0.9, 0.25, 1),
+                        width 0.8s cubic-bezier(0.22, 0.9, 0.25, 1),
+                        height 0.8s cubic-bezier(0.22, 0.9, 0.25, 1),
+                        border-radius 0.8s ease,
+                        box-shadow 0.8s ease !important;
+        }
+
         .envelope-box.letter-zoomed .letter-content {
             opacity: 1 !important;
             transition: none !important;
@@ -631,7 +648,7 @@
         <span id="musicIcon">🎵</span> <span id="musicText">Bật Nhạc (My Love Mine All Mine)</span>
     </button>
 
-    <audio id="bgMusic" preload="auto" loop src="https://ia801503.us.archive.org/15/items/mitski-my-love-mine-all-mine/Mitski%20-%20My%20Love%20Mine%20All%20Mine.mp3"></audio>
+    <audio id="bgMusic" preload="auto" autoplay loop playsinline src="https://ia801503.us.archive.org/15/items/mitski-my-love-mine-all-mine/Mitski%20-%20My%20Love%20Mine%20All%20Mine.mp3"></audio>
 
     <!-- KHUNG CHÍNH PHONG BÌ -->
     <div class="main-wrapper" id="mainWrapper">
@@ -731,13 +748,16 @@
             typeWriter();
         }
 
-        // PHÁT NHẠC FADE-IN TỪ GIÂY 18
+        // PHÁT NHẠC NGAY KHI VÀO WEB — cố gắng autoplay và fade-in từ giây 18.
         function playPreChorusMusic() {
-            if (!musicPlaying) {
-                clearInterval(fadeInterval);
-                bgMusic.volume = 0;
-                bgMusic.currentTime = 18;
-                
+            if (musicPlaying) return;
+
+            clearInterval(fadeInterval);
+            bgMusic.volume = 0;
+
+            const startAt18 = () => {
+                try { bgMusic.currentTime = 18; } catch (_) {}
+
                 bgMusic.play().then(() => {
                     musicPlaying = true;
                     document.getElementById('musicIcon').textContent = '🎶';
@@ -745,20 +765,24 @@
 
                     let vol = 0;
                     fadeInterval = setInterval(() => {
-                        if (vol < 1) {
-                            vol += 0.05;
-                            if (vol > 1) vol = 1;
-                            bgMusic.volume = vol;
-                        } else {
-                            clearInterval(fadeInterval);
-                        }
+                        vol = Math.min(1, vol + 0.05);
+                        bgMusic.volume = vol;
+                        if (vol >= 1) clearInterval(fadeInterval);
                     }, 75);
-
-                }).catch((err) => {
-                    console.log("Cần tương tác người dùng để phát nhạc:", err);
+                }).catch(() => {
+                    // Autoplay có thể bị trình duyệt chặn. Lần chạm/click đầu tiên sẽ kích hoạt lại.
                 });
-            }
+            };
+
+            if (bgMusic.readyState >= 1) startAt18();
+            else bgMusic.addEventListener('loadedmetadata', startAt18, { once: true });
         }
+
+        // Thử phát ngay khi trang vừa tải; nếu trình duyệt chặn autoplay thì tương tác đầu tiên sẽ bật nhạc.
+        window.addEventListener('load', () => playPreChorusMusic());
+        ['pointerdown', 'keydown', 'touchstart'].forEach(type => {
+            window.addEventListener(type, playPreChorusMusic, { once: true, passive: true });
+        });
 
         // MỞ THƯ
         function openEnvelope() {
@@ -808,8 +832,7 @@
             }
         }
 
-        // ĐÓNG THƯ — soi gương chính xác 4 bước của lúc MỞ (cùng thời lượng & cùng easing),
-        // chỉ chạy ngược thứ tự: mờ nội dung -> thu nhỏ về điểm xuất phát -> trượt xuống -> gập nắp lại
+        // ĐÓNG THƯ — chạy ngược mượt theo đúng đường đi của lúc mở.
         function closeEnvelope(e) {
             if (e) e.stopPropagation();
             if (isAnimating) return;
@@ -820,43 +843,47 @@
             const letter = document.getElementById('letterCard');
             const content = letter.querySelector('.letter-content');
 
-            // 0) Mờ dần nội dung thư trước — đối xứng với việc chữ hiện dần lúc mở (startTyping)
+            // 1) Mờ nội dung trước khi lá thư bắt đầu thu lại.
             content.classList.add('fading-out');
+            clearTimeout(typeTimer);
 
+            // 2) Đóng nền tối cùng lúc với việc thu lá thư, tạo cảm giác liền mạch.
             setTimeout(() => {
-                clearTimeout(typeTimer);
-                document.getElementById('typedText').textContent = '';
-
-                // 1) Thu/phóng ngược về ĐÚNG vị trí mà lá thư từng được rút lên (đối xứng bước "letter-centered")
+                // Đảm bảo browser đã ghi nhận trạng thái centered trước khi đảo chiều.
+                void letter.offsetWidth;
+                box.classList.add('letter-closing');
                 box.classList.remove('letter-centered');
+                backdrop.classList.remove('active');
+                mainWrapper.classList.remove('letter-active');
             }, 300);
 
+            // 3) Sau đúng thời lượng 0.8s, thư đã về nguyên vị trí rút lên.
             setTimeout(() => {
-                // 2) Khi đã về đúng vị trí đó, đổi lại trạng thái absolute rồi chuẩn bị trượt xuống phong bì
                 box.classList.remove('letter-zoomed');
-                mainWrapper.classList.remove('letter-active');
-                backdrop.classList.remove('active');
+                box.classList.remove('letter-closing');
+
+                // Đồng bộ transition trượt xuống với chiều mở.
+                letter.style.transition = 'transform 0.75s cubic-bezier(0.22, 0.85, 0.25, 1)';
+                requestAnimationFrame(() => {
+                    box.classList.remove('letter-slid-up');
+                });
             }, 300 + 820);
 
+            // 4) Chờ lá thư trượt xuống xong rồi mới gập nắp, tránh hai animation chồng lên nhau.
             setTimeout(() => {
-                // 3) Trượt nguyên lá thư xuống lại phong bì — ép cùng tốc độ 0.75s như lúc rút lên để hai chiều khớp nhau
-                letter.style.transition = 'transform 0.75s cubic-bezier(0.22, 0.85, 0.25, 1)';
-                box.classList.remove('letter-slid-up');
-            }, 300 + 820 + 60);
-
-            setTimeout(() => {
-                // 4) Gập nắp phong bì lại, đúng bằng tốc độ 0.4s lúc mở nắp
                 box.classList.remove('flap-open');
-            }, 300 + 820 + 60 + 780);
+            }, 300 + 820 + 780);
 
+            // 5) Dọn trạng thái sau khi nắp đã khép hẳn.
             setTimeout(() => {
                 content.classList.remove('fading-out');
+                document.getElementById('typedText').textContent = '';
                 letter.style.transition = '';
                 letter.style.removeProperty('--letter-start-top');
                 letter.style.removeProperty('--letter-start-width');
                 letter.style.removeProperty('--letter-start-height');
                 isAnimating = false;
-            }, 300 + 820 + 60 + 780 + 420);
+            }, 300 + 820 + 780 + 420);
         }
 
         // ĐIỀU KHIỂN NÚT NHẠC
