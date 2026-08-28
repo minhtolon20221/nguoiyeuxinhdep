@@ -27,7 +27,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ----- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM CHUẨN HÌNH CHỮ S & MÁY BAY ----- */
+        /* ----- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM CHUẨN MẪU & MÁY BAY BAY TỪ BẮC VÀO NAM ----- */
         .intro-scene {
             position: fixed;
             top: 0; left: 0;
@@ -49,7 +49,7 @@
 
         .map-container {
             position: relative;
-            width: 180px;
+            width: 200px;
             height: 400px;
             display: flex;
             justify-content: center;
@@ -58,8 +58,8 @@
 
         .vietnam-map-svg {
             position: absolute;
-            top: 0; left: 15px;
-            filter: drop-shadow(0 3px 8px rgba(216, 27, 96, 0.3));
+            top: 0; left: 20px;
+            filter: drop-shadow(0 4px 10px rgba(216, 27, 96, 0.35));
         }
 
         .flying-plane {
@@ -71,21 +71,21 @@
         }
 
         @keyframes flyAlongVietnam {
-            0%   { top: 20px;  left: 80px; transform: rotate(45deg) scale(0.8); }
-            35%  { top: 140px; left: 95px; transform: rotate(25deg) scale(1); }
-            70%  { top: 280px; left: 65px; transform: rotate(10deg) scale(1); }
-            100% { top: 370px; left: 55px; transform: rotate(45deg) scale(0.9); }
+            0%   { top: 15px;  left: 95px; transform: rotate(45deg) scale(0.8); }
+            35%  { top: 130px; left: 125px; transform: rotate(25deg) scale(1); }
+            70%  { top: 270px; left: 75px; transform: rotate(15deg) scale(1); }
+            100% { top: 350px; left: 50px; transform: rotate(50deg) scale(0.9); }
         }
 
         .node-north {
-            position: absolute; top: 10px; left: 10px;
+            position: absolute; top: 10px; left: 12px;
             font-size: 0.75rem; font-weight: 700; color: #b71c1c;
             background: rgba(255,255,255,0.95); padding: 2px 8px; border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .node-south {
-            position: absolute; bottom: 10px; right: 0px;
+            position: absolute; bottom: 10px; right: 5px;
             font-size: 0.75rem; font-weight: 700; color: #b71c1c;
             background: rgba(255,255,255,0.95); padding: 2px 8px; border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -135,7 +135,7 @@
             100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* LỚP TỐI (BACKDROP) PHÍA SAU KHI MỞ THƯ */
+        /* LỚP TỐI (BACKDROP) PHÍA SAU KHI MỞ THƯ (XUNG QUANH TỐI) */
         .dark-backdrop {
             position: fixed;
             top: 0; left: 0;
@@ -460,28 +460,39 @@
     <!-- LỚP NỀN TỐI XUNG QUANH KHI MỞ THƯ -->
     <div class="dark-backdrop" id="darkBackdrop"></div>
 
-    <!-- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM CHUẨN HÌNH CHỮ S & MÁY BAY -->
+    <!-- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM CHUẨN MẪU KÈM SAO VÀNG & MÁY BAY -->
     <div class="intro-scene" id="introScene">
         <div class="map-container">
-            <!-- Bản đồ Việt Nam hình chữ S chuẩn xác (Bắc - Trung - Nam) -->
-            <svg class="vietnam-map-svg" viewBox="0 0 120 380" width="110" height="370">
-                <path d="M 50,15 
-                         C 75,20 85,35 80,55 
-                         C 75,75 55,85 50,110 
-                         C 45,135 60,150 70,180 
-                         C 80,210 85,230 75,260 
-                         C 65,290 50,310 40,335 
-                         C 32,355 45,375 60,375 
-                         C 70,375 75,360 70,340 
-                         C 62,310 75,280 85,255 
-                         C 95,230 90,200 80,170 
-                         C 70,140 55,125 58,100 
-                         C 60,75 72,60 68,45 
-                         C 64,30 40,25 50,15 Z" 
-                      fill="rgba(216, 27, 96, 0.25)" 
-                      stroke="#d81b60" 
-                      stroke-width="3" 
-                      stroke-linejoin="round"/>
+            <!-- Bản đồ Việt Nam chuẩn khớp mẫu ảnh người dùng cung cấp -->
+            <svg class="vietnam-map-svg" viewBox="0 0 350 700" width="150" height="360">
+                <path d="M 110,25 
+                         C 130,20 160,30 180,20 
+                         C 200,30 220,25 235,45 
+                         C 250,65 220,80 230,105 
+                         C 245,115 270,110 275,135 
+                         C 270,155 240,160 230,180 
+                         C 200,185 185,160 170,180 
+                         C 150,205 170,230 155,255 
+                         C 140,280 125,305 120,330 
+                         C 115,355 135,375 125,400 
+                         C 115,425 100,450 95,475 
+                         C 90,500 110,520 100,545 
+                         C 90,570 75,590 70,615 
+                         C 65,640 80,660 70,680 
+                         C 62,695 48,685 45,660 
+                         C 42,635 55,610 65,585 
+                         C 75,560 65,535 80,510 
+                         C 95,485 105,460 100,435 
+                         C 95,410 100,385 105,360 
+                         C 110,335 95,310 110,285 
+                         C 125,260 140,235 145,210 
+                         C 150,185 135,165 145,140 
+                         C 152,120 175,110 170,90 
+                         C 165,70 135,75 130,55 
+                         C 125,40 135,25 110,25 Z" 
+                      fill="#e53935"/>
+                <!-- Ngôi sao vàng ở giữa bản đồ -->
+                <polygon points="145,360 152,378 172,378 156,390 162,408 145,396 128,408 134,390 118,378 138,378" fill="#ffeb3b"/>
             </svg>
             <div class="flying-plane">✈️</div>
             <div class="node-north">📍 Bắc</div>
