@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Trend - Envelope & Letter Animation</title>
+    <title>TikTok Trend - Envelope Fixed Layers</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -21,10 +21,9 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
         }
 
-        /* ----- TRÁI TIM BAY NỀN (AESTHETIC FLOATING HEARTS) ----- */
+        /* TRÁI TIM BAY NỀN */
         .heart-particle {
             position: fixed;
             color: rgba(255, 105, 180, 0.6);
@@ -36,26 +35,19 @@
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) scale(0.5) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1.2) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        /* ----- KHUNG PHONG BÌ CĂN GIỮA MÀN HÌNH ----- */
         .main-wrapper {
             position: relative;
             z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
         }
 
+        /* KHUNG PHONG BÌ */
         .envelope-box {
             position: relative;
             width: 300px;
@@ -65,10 +57,9 @@
             border-bottom-right-radius: 12px;
             box-shadow: 0 15px 35px rgba(216, 27, 96, 0.2);
             cursor: pointer;
-            perspective: 1000px;
         }
 
-        /* Nền phía sau trong lòng phong bì */
+        /* LAYER 1: MẶT SAU PHONG BÌ (ĐÁY CÙNG) */
         .envelope-back {
             position: absolute;
             top: 0; left: 0;
@@ -78,7 +69,7 @@
             z-index: 1;
         }
 
-        /* ----- TỜ THƯ NẰM TRONG PHONG BÌ ----- */
+        /* LAYER 2: LÁ THƯ (MẶC ĐỊNH NẰM TRONG TÚI) */
         .letter {
             position: absolute;
             bottom: 8px;
@@ -92,10 +83,11 @@
             padding: 20px 18px;
             border: 1px solid #e0d5c1;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            z-index: 2; /* Nằm giữa mặt sau và nắp túi front */
+            
+            /* Z-index ban đầu thấp hơn mặt trước túi */
+            z-index: 2; 
             transform: translateY(0) scale(1);
-            transform-origin: center center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s ease;
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -108,14 +100,13 @@
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             color: #fff; font-size: 13px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .letter-content {
             font-family: 'Dancing Script', cursive;
             color: #2b1704;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -163,12 +154,12 @@
             transform: scale(1.05);
         }
 
-        /* ----- TÚI MẶT TRƯỚC CỦA PHONG BÌ ----- */
+        /* LAYER 3: TÚI MẶT TRƯỚC VÀ NẮP DƯỚI (NẰM ĐÈ LÊN LÁ THƯ KHI TRONG PHONG BÌ) */
         .envelope-pocket {
             position: absolute;
             bottom: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 3;
+            z-index: 4;
             pointer-events: none;
         }
 
@@ -194,13 +185,13 @@
             border-bottom: 105px solid #ec407a;
             border-left: 150px solid transparent;
             border-right: 150px solid transparent;
-            z-index: 4;
+            z-index: 5;
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
             pointer-events: none;
         }
 
-        /* NẮP PHONG BÌ 3D */
+        /* LAYER 4: NẮP BÊN TRÊN PHONG BÌ (MẶC ĐỊNH NẰM TRÊN CÙNG) */
         .envelope-flap {
             position: absolute;
             top: 0; left: 0;
@@ -208,8 +199,8 @@
             border-left: 150px solid transparent;
             border-right: 150px solid transparent;
             transform-origin: top;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.1s 0.25s;
-            z-index: 5;
+            transition: transform 0.4s ease-in-out;
+            z-index: 6;
         }
 
         .wax-seal {
@@ -222,8 +213,8 @@
             display: flex; justify-content: center; align-items: center;
             color: #fff; font-size: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 6;
-            transition: opacity 0.3s ease;
+            z-index: 7;
+            transition: opacity 0.2s ease;
         }
 
         .click-hint {
@@ -232,7 +223,6 @@
             font-weight: 600;
             font-size: 0.95rem;
             animation: pulse 1.5s infinite;
-            transition: opacity 0.3s;
         }
 
         @keyframes pulse {
@@ -240,8 +230,235 @@
             50% { transform: translateY(-6px); opacity: 1; }
         }
 
-        /* NÚT BẬT NHẠC */
         .music-control {
             position: fixed;
             bottom: 20px; left: 20px;
-            background: rgba(255, 25
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255,255,255,0.6);
+            padding: 8px 15px; border-radius: 25px;
+            cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #333;
+            z-index: 200; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* CÁC CLASS ĐIỀU KHIỂN TRẠNG THÁI (STATE MANAGEMENT CỰC CHUẨN) */
+        /* ------------------------------------------------------------- */
+
+        /* Nắp mở lật ra sau */
+        .flap-open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1; /* Chui về phía sau mặt đáy */
+        }
+
+        .flap-open .wax-seal {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Thư rút lên khỏi miệng túi */
+        .letter-slid-up .letter {
+            transform: translateY(-160px) scale(1);
+        }
+
+        /* Đổi z-index để lá thư nổi lên TRƯỚC toàn bộ phong bì */
+        .letter-in-front .letter {
+            z-index: 100 !important;
+        }
+
+        /* Thư phóng to ra giữa màn hình */
+        .letter-zoomed .letter {
+            transform: translateY(-20px) scale(1.85);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .letter-zoomed .letter-content {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .letter-zoomed .letter {
+                transform: translateY(-10px) scale(1.35);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="heartContainer"></div>
+
+    <button class="music-control" onclick="toggleMusic()">
+        <span id="musicIcon">🎵</span> <span id="musicText">Bật nhạc</span>
+    </button>
+    <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112188.mp3"></audio>
+
+    <div class="main-wrapper">
+        <div class="envelope-box" id="envelopeBox" onclick="openLetterSequence()">
+            <div class="envelope-back"></div>
+
+            <div class="letter" id="letterCard" onclick="event.stopPropagation()">
+                <div class="letter-stamp">❤️</div>
+                <div class="letter-content">
+                    <div>
+                        <h3>Gửi [Tên Người Nhận],</h3>
+                        <div class="typed-text" id="typedText"></div>
+                    </div>
+
+                    <div>
+                        <div class="signature">Thân mến,<br>[Tên Của Bạn]</div>
+                        <button class="btn-pack" onclick="closeLetterSequence(event)">Gấp & nhét vào phong bì ✉️</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="envelope-pocket"></div>
+            <div class="envelope-bottom"></div>
+            <div class="envelope-flap"></div>
+            <div class="wax-seal">❤️</div>
+        </div>
+
+        <div class="click-hint" id="clickHint">✨ Bấm vào phong bì để mở thư ✨</div>
+    </div>
+
+    <script>
+        const letterText = "Chào mừng bạn đến với lá thư này!\n\nTụi mình đã tự tay chuẩn bị thông điệp này dành riêng cho bạn.\n\nChúc bạn có một ngày thật nhiều niềm vui và luôn mỉm cười nhé!";
+        let typeIndex = 0;
+        let typeTimeout;
+        let isAnimating = false; // Chống spam click làm đè animation
+
+        function typeWriter() {
+            const container = document.getElementById('typedText');
+            if (typeIndex < letterText.length) {
+                container.textContent += letterText.charAt(typeIndex);
+                typeIndex++;
+                typeTimeout = setTimeout(typeWriter, 35);
+            }
+        }
+
+        function startTyping() {
+            clearTimeout(typeTimeout);
+            document.getElementById('typedText').textContent = "";
+            typeIndex = 0;
+            typeWriter();
+        }
+
+        function clearTyping() {
+            clearTimeout(typeTimeout);
+            document.getElementById('typedText').textContent = "";
+            typeIndex = 0;
+        }
+
+        /* ----- TIẾN TRÌNH MỞ THƯ (KHÔNG BỊ LỖI LAYER) ----- */
+        function openLetterSequence() {
+            if (isAnimating) return;
+            const box = document.getElementById('envelopeBox');
+
+            if (!box.classList.contains('flap-open')) {
+                isAnimating = true;
+
+                // Bước 1: Lật nắp phong bì ra sau (Chờ 400ms)
+                box.classList.add('flap-open');
+
+                setTimeout(() => {
+                    // Bước 2: Rút lá thư trượt lên phía trên miệng túi (vẫn giữ z-index thấp)
+                    box.classList.add('letter-slid-up');
+
+                    setTimeout(() => {
+                        // Bước 3: ĐỐI LAYER! Khi lá thư đã thoát hoàn toàn khỏi miệng túi, đưa z-index lên 100
+                        box.classList.add('letter-in-front');
+
+                        setTimeout(() => {
+                            // Bước 4: Phóng to lá thư ra giữa màn hình
+                            box.classList.add('letter-zoomed');
+                            startTyping();
+                            playMusicAuto();
+                            isAnimating = false;
+                        }, 50);
+
+                    }, 450); // Chờ trượt lên xong mới đổi z-index
+
+                }, 400);
+            }
+        }
+
+        /* ----- TIẾN TRÌNH ĐÓNG THƯ (RÚT NGƯỢC VÀO TÚI) ----- */
+        function closeLetterSequence(e) {
+            if (e) e.stopPropagation();
+            if (isAnimating) return;
+            
+            isAnimating = true;
+            const box = document.getElementById('envelopeBox');
+
+            clearTyping();
+
+            // Bước 1: Thu nhỏ thư trở lại vị trí phía trên miệng túi
+            box.classList.remove('letter-zoomed');
+
+            setTimeout(() => {
+                // Bước 2: HẠ LAYER TRỞ LẠI! Đưa z-index về lại sau túi phong bì TRƯỚC KHI chui xuống
+                box.classList.remove('letter-in-front');
+
+                setTimeout(() => {
+                    // Bước 3: Trượt lá thư chui xuống lại vào trong túi
+                    box.classList.remove('letter-slid-up');
+
+                    setTimeout(() => {
+                        // Bước 4: Đóng nắp phong bì lại
+                        box.classList.remove('flap-open');
+                        isAnimating = false;
+                    }, 450);
+
+                }, 50);
+
+            }, 450);
+        }
+
+        // Tạo trái tim bay
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            const hearts = ['❤️', '💖', '🌸', '✨', '💕'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-particle');
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.fontSize = (Math.random() * 8 + 16) + 'px';
+                
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), 7000);
+            }, 450);
+        }
+        createHearts();
+
+        // Âm nhạc
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                bgMusic.pause();
+                document.getElementById('musicIcon').textContent = '🎵';
+                document.getElementById('musicText').textContent = 'Bật nhạc';
+                musicPlaying = false;
+            } else {
+                bgMusic.play();
+                document.getElementById('musicIcon').textContent = '🎶';
+                document.getElementById('musicText').textContent = 'Tắt nhạc';
+                musicPlaying = true;
+            }
+        }
+
+        function playMusicAuto() {
+            if (!musicPlaying) {
+                bgMusic.play().then(() => {
+                    document.getElementById('musicIcon').textContent = '🎶';
+                    document.getElementById('musicText').textContent = 'Tắt nhạc';
+                    musicPlaying = true;
+                }).catch(() => {});
+            }
+        }
+    </script>
+</body>
+</html>
