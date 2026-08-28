@@ -80,7 +80,7 @@
         }
 
         /* Hai mốc được đặt theo đúng 2 chấm người dùng đánh dấu trên bản đồ: */
-        /* Bắc = phần giữa của đầu bản đồ; Nam = phần hẹp phía cuối chữ S. */
+        /* Bắc/Nam bám đúng hai điểm người dùng đánh dấu trên ảnh: Bắc 47%/13%, Nam 58%/79%. */
         .region-marker {
             position: absolute;
             z-index: 7;
@@ -110,14 +110,14 @@
         }
 
         .region-marker.north {
-            left: 35%;
-            top: 11%;
+            left: 47%;
+            top: 13%;
             transform: translate(-50%, -50%);
         }
 
         .region-marker.south {
-            left: 47%;
-            top: 89%;
+            left: 58%;
+            top: 79%;
             transform: translate(-50%, -50%);
         }
 
@@ -140,15 +140,15 @@
 
         /* Các điểm đều nằm trên phần màu đỏ của bản đồ, theo chiều Bắc -> Trung -> Nam. */
         @keyframes flyAlongVietnam {
-            0%   { left: 35%; top: 11%; transform: translate(-50%,-50%) rotate(25deg) scale(.82); }
-            12%  { left: 34%; top: 17%; transform: translate(-50%,-50%) rotate(20deg) scale(.95); }
-            26%  { left: 37%; top: 26%; transform: translate(-50%,-50%) rotate(17deg) scale(1); }
-            40%  { left: 42%; top: 37%; transform: translate(-50%,-50%) rotate(24deg) scale(1); }
-            54%  { left: 49%; top: 48%; transform: translate(-50%,-50%) rotate(32deg) scale(1); }
-            68%  { left: 51%; top: 60%; transform: translate(-50%,-50%) rotate(35deg) scale(1); }
-            80%  { left: 49%; top: 71%; transform: translate(-50%,-50%) rotate(43deg) scale(.98); }
-            91%  { left: 45%; top: 81%; transform: translate(-50%,-50%) rotate(50deg) scale(.94); }
-            100% { left: 47%; top: 89%; transform: translate(-50%,-50%) rotate(55deg) scale(.88); }
+            0%   { left: 47%; top: 13%; transform: translate(-50%,-50%) rotate(22deg) scale(.82); }
+            14%  { left: 48%; top: 19%; transform: translate(-50%,-50%) rotate(20deg) scale(.95); }
+            28%  { left: 50%; top: 28%; transform: translate(-50%,-50%) rotate(24deg) scale(1); }
+            42%  { left: 53%; top: 39%; transform: translate(-50%,-50%) rotate(29deg) scale(1); }
+            56%  { left: 56%; top: 50%; transform: translate(-50%,-50%) rotate(35deg) scale(1); }
+            70%  { left: 59%; top: 61%; transform: translate(-50%,-50%) rotate(40deg) scale(1); }
+            82%  { left: 60%; top: 69%; transform: translate(-50%,-50%) rotate(48deg) scale(.98); }
+            92%  { left: 59%; top: 75%; transform: translate(-50%,-50%) rotate(52deg) scale(.94); }
+            100% { left: 58%; top: 79%; transform: translate(-50%,-50%) rotate(56deg) scale(.88); }
         }
 
         .start-btn {
@@ -331,6 +331,8 @@
             color: #1a0f02;
             opacity: 0;
             transition: none !important;
+            transform: none !important;
+            animation: none !important;
             filter: none !important;
             height: 100%;
             display: flex;
@@ -483,6 +485,7 @@
 
         .envelope-box.letter-slid-up .letter {
             transform: none !important;
+            transition: none !important;
         }
 
         .envelope-box.letter-zoomed .letter {
@@ -514,6 +517,7 @@
             opacity: 1 !important;
             transition: none !important;
             animation: none !important;
+            transform: none !important;
         }
 
         /* RESPONSIVE DI ĐỘNG */
@@ -523,8 +527,8 @@
             .vietnam-map-image { width: 100%; height: 100%; }
             .flight-route { inset: 0; }
             .region-marker { font-size: 0.68rem; padding: 5px 8px; }
-            .region-marker.north { left: 35%; top: 11%; }
-            .region-marker.south { left: 47%; top: 89%; }
+            .region-marker.north { left: 47%; top: 13%; }
+            .region-marker.south { left: 58%; top: 79%; }
             .envelope-box {
                 width: 90vw;
                 height: 56vw;
