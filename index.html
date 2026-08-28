@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hành Trình Việt Nam & Thư Tình</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -24,9 +24,10 @@
             align-items: center;
             position: relative;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ----- INTRO MÀN HÌNH CHÀO (YÊU CẦU BẤM ĐỂ VÀO) ----- */
+        /* ----- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM S-SHAPE & MÁY BAY ----- */
         .intro-scene {
             position: fixed;
             top: 0; left: 0;
@@ -48,56 +49,64 @@
 
         .intro-title {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             color: #d81b60;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-weight: 700;
-            text-shadow: 0 2px 10px rgba(216, 27, 96, 0.2);
+            text-shadow: 0 2px 8px rgba(216, 27, 96, 0.2);
+            text-align: center;
         }
 
         .map-container {
             position: relative;
-            width: 200px;
-            height: 350px;
+            width: 180px;
+            height: 360px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .vietnam-map-svg {
             position: absolute;
             top: 0; left: 0;
+            filter: drop-shadow(0 2px 4px rgba(216, 27, 96, 0.2));
         }
 
         .flying-plane {
             position: absolute;
             font-size: 24px;
-            animation: flyNorthToSouth 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            z-index: 2;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            animation: flyAlongVietnam 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            z-index: 3;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.25));
         }
 
-        @keyframes flyNorthToSouth {
-            0% { top: 0px; left: 50px; transform: rotate(45deg) scale(0.8); }
-            50% { top: 180px; left: 90px; transform: rotate(30deg) scale(1); }
-            100% { top: 320px; left: 80px; transform: rotate(50deg) scale(0.9); }
+        @keyframes flyAlongVietnam {
+            0%   { top: 10px;  left: 65px; transform: rotate(45deg) scale(0.8); }
+            30%  { top: 110px; left: 95px; transform: rotate(35deg) scale(1); }
+            70%  { top: 250px; left: 75px; transform: rotate(15deg) scale(1); }
+            100% { top: 330px; left: 70px; transform: rotate(50deg) scale(0.9); }
         }
 
         .node-north {
-            position: absolute; top: -10px; left: 10px;
-            font-size: 0.8rem; font-weight: 700; color: #b71c1c;
-            background: rgba(255,255,255,0.8); padding: 2px 8px; border-radius: 10px;
+            position: absolute; top: 0px; left: -10px;
+            font-size: 0.75rem; font-weight: 700; color: #b71c1c;
+            background: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .node-south {
-            position: absolute; bottom: -10px; right: 0px;
-            font-size: 0.8rem; font-weight: 700; color: #b71c1c;
-            background: rgba(255,255,255,0.8); padding: 2px 8px; border-radius: 10px;
+            position: absolute; bottom: 5px; right: -15px;
+            font-size: 0.75rem; font-weight: 700; color: #b71c1c;
+            background: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .start-btn {
-            margin-top: 30px;
+            margin-top: 25px;
             background: #d81b60;
             color: #fff;
             border: none;
-            padding: 12px 32px;
+            padding: 12px 30px;
             border-radius: 30px;
             font-weight: 600;
             font-size: 1rem;
@@ -111,7 +120,7 @@
             transform: scale(1.05);
         }
 
-        /* TRÁI TIM BAY BACKGROUND */
+        /* TRÁI TIM BAY NỀN */
         #heartsContainer {
             position: fixed;
             top: 0; left: 0;
@@ -136,7 +145,7 @@
             100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* KHUNG BAO PHONG BÌ CHÍNH */
+        /* KHUNG BAO PHONG BÌ */
         .main-wrapper {
             position: relative;
             z-index: 10;
@@ -145,7 +154,6 @@
             align-items: center;
         }
 
-        /* PHONG BÌ (HOÀN TOÀN SÁNG, KHÔNG TỐI NỀN) */
         .envelope-box {
             position: relative;
             width: 540px;
@@ -166,7 +174,7 @@
             z-index: 1;
         }
 
-        /* LÁ THƯ BÊN TRONG */
+        /* LÁ THƯ (SẮC NÉT, KHÔNG BỊ MỜ) */
         .letter {
             position: absolute;
             bottom: 12px;
@@ -174,19 +182,20 @@
             width: 500px;
             height: 310px;
             background: #fffdf5;
-            background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
+            background-image: linear-gradient(#e5ddd0 1px, transparent 1px);
             background-size: 100% 30px;
             border-radius: 10px;
             padding: 22px;
-            border: 1px solid #e0d5c1;
+            border: 1px solid #dcd3c1;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             z-index: 2;
             transition: all 0.45s cubic-bezier(0.25, 1, 0.5, 1);
             box-sizing: border-box;
             overflow: hidden;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* NÚT ĐÓNG X GÓC THƯ */
         .close-btn-x {
             position: absolute;
             top: 12px; right: 16px;
@@ -219,7 +228,7 @@
 
         .letter-content {
             font-family: 'Dancing Script', cursive;
-            color: #2b1704;
+            color: #1a0f02;
             opacity: 0;
             transition: opacity 0.3s ease;
             height: 100%;
@@ -229,22 +238,24 @@
         }
 
         .letter-content h3 {
-            font-size: 1.9rem;
+            font-size: 2.1rem;
             color: #b71c1c;
             margin-bottom: 6px;
+            font-weight: 700;
         }
 
         .typed-text {
-            font-size: 1.35rem;
+            font-size: 1.45rem;
             line-height: 1.5;
             white-space: pre-line;
-            font-weight: 600;
+            font-weight: 700;
+            color: #2b1704;
         }
 
         .signature {
             text-align: right;
             font-weight: 700;
-            font-size: 1.35rem;
+            font-size: 1.45rem;
             color: #8e0000;
             margin-top: 5px;
         }
@@ -344,7 +355,7 @@
             50% { transform: translateY(-5px); opacity: 1; }
         }
 
-        /* NÚT BẬT NHẠC */
+        /* NÚT NHẠC */
         .music-control {
             position: fixed;
             bottom: 20px; left: 20px;
@@ -359,9 +370,8 @@
 
         .music-control:hover { transform: scale(1.05); }
 
-        /* ----- TRẠNG THÁI MỞ & ĐÓNG THƯ (KHÔNG LỆCH LAYER) ----- */
+        /* ----- TRẠNG THÁI MỞ & ĐÓNG THƯ (SẮC NÉT, KHÔNG LỆCH LAYER) ----- */
 
-        /* 1. Mở nắp */
         .envelope-box.flap-open .envelope-flap {
             transform: rotateX(180deg);
             z-index: 1;
@@ -371,12 +381,10 @@
             pointer-events: none;
         }
 
-        /* 2. Trượt thư nhô lên khỏi túi */
         .envelope-box.letter-slid-up .letter {
-            transform: translateY(-210px);
+            transform: translateY(-210px) translateZ(0);
         }
 
-        /* 3. Phóng to thư ra giữa màn hình (Nằm trên cùng hoàn toàn) */
         .envelope-box.letter-zoomed .letter {
             position: fixed !important;
             top: 50% !important;
@@ -385,12 +393,13 @@
             max-width: 90vw !important;
             height: 460px !important;
             max-height: 85vh !important;
-            transform: translate(-50%, -50%) !important;
+            transform: translate(-50%, -50%) translateZ(0) !important;
             padding: 28px 32px !important;
             background-size: 100% 32px !important;
             z-index: 999999 !important;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25) !important;
             overflow-y: auto !important;
+            backface-visibility: hidden;
         }
 
         .envelope-box.letter-zoomed .letter-content {
@@ -432,23 +441,27 @@
                 height: 78vh !important;
                 padding: 20px !important;
             }
-            .typed-text { font-size: 1.2rem; }
-            .letter-content h3 { font-size: 1.5rem; }
+            .typed-text { font-size: 1.3rem; }
+            .letter-content h3 { font-size: 1.7rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- INTRO CHÀO MỪNG (BẤM ĐỂ BẮT ĐẦU) -->
+    <!-- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM S-SHAPE -->
     <div class="intro-scene" id="introScene">
         <div class="intro-title">🇻🇳 Hành trình từ Bắc vào Nam...</div>
         <div class="map-container">
-            <svg class="vietnam-map-svg" viewBox="0 0 200 350" width="100%" height="100%">
-                <path d="M 60 20 Q 100 110, 80 190 T 90 320" fill="none" stroke="rgba(216, 27, 96, 0.4)" stroke-width="4" stroke-dasharray="6,6"/>
+            <!-- SVG Bản đồ hình chữ S Việt Nam chi tiết -->
+            <svg class="vietnam-map-svg" viewBox="0 0 160 360" width="140" height="340">
+                <!-- Viền nền bản đồ -->
+                <path d="M 75,15 C 85,25 95,35 88,50 C 78,65 65,60 58,75 C 50,90 65,105 75,120 C 85,135 92,150 88,170 C 83,190 68,205 62,225 C 55,245 65,260 75,280 C 85,300 90,320 82,340 C 75,350 68,345 70,330" fill="none" stroke="rgba(216, 27, 96, 0.3)" stroke-width="6" stroke-linecap="round"/>
+                <!-- Hình khối chính bản đồ Việt Nam chữ S -->
+                <path d="M 72,12 C 82,22 92,32 85,47 C 75,62 62,57 55,72 C 47,87 62,102 72,117 C 82,132 89,147 85,167 C 80,187 65,202 59,222 C 52,242 62,257 72,277 C 82,297 87,317 79,337 C 73,348 66,342 68,328 Z" fill="rgba(216, 27, 96, 0.18)" stroke="#d81b60" stroke-width="2.5"/>
             </svg>
             <div class="flying-plane">✈️</div>
             <div class="node-north">📍 Hà Nội</div>
-            <div class="node-south">📍 TP. Hồ Chí Minh</div>
+            <div class="node-south">📍 TP. HCM</div>
         </div>
         <button class="start-btn" onclick="startMainScene()">Khám phá ngay ➔</button>
     </div>
@@ -504,7 +517,6 @@
         let musicPlaying = false;
         let fadeInterval = null;
 
-        // VÀO MÀN HÌNH CHÍNH KHI BẤM NÚT
         function startMainScene() {
             const intro = document.getElementById('introScene');
             intro.classList.add('hidden');
@@ -580,7 +592,7 @@
             }
         }
 
-        // MỞ THƯ THEO THỨ TỰ CHUẨN XÁC (TRÁNH CHỒNG LAYER)
+        // MỞ THƯ
         function openEnvelope() {
             playPreChorusMusic();
             if (isAnimating) return;
@@ -589,15 +601,12 @@
             if (!box.classList.contains('flap-open')) {
                 isAnimating = true;
 
-                // Bước 1: Mở nắp phong bì
                 box.classList.add('flap-open');
 
-                // Bước 2: Trượt lá thư nhô lên khỏi túi
                 setTimeout(() => {
                     box.classList.add('letter-slid-up');
                 }, 350);
 
-                // Bước 3: Phóng to lá thư ra giữa màn hình
                 setTimeout(() => {
                     box.classList.add('letter-zoomed');
                     startTyping();
@@ -606,7 +615,7 @@
             }
         }
 
-        // ĐÓNG THƯ THEO THỨ TỰ NGƯỢC LẠI (TRÁNH CHỒNG LAYER)
+        // ĐÓNG THƯ
         function closeEnvelope(e) {
             if (e) e.stopPropagation();
             if (isAnimating) return;
@@ -617,15 +626,12 @@
             clearTimeout(typeTimer);
             document.getElementById('typedText').textContent = "";
 
-            // Bước 1: Thu nhỏ thư về vị trí phong bì
             box.classList.remove('letter-zoomed');
 
-            // Bước 2: Trượt thư tụt xuống lại vào trong túi
             setTimeout(() => {
                 box.classList.remove('letter-slid-up');
             }, 400);
 
-            // Bước 3: Đóng nắp phong bì lại
             setTimeout(() => {
                 box.classList.remove('flap-open');
                 isAnimating = false;
