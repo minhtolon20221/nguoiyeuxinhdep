@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Love Letter - Special Message</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ----- TRÁI TIM BAY NỀN (FLOATING HEARTS) ----- */
+        .heart-particle {
+            position: fixed;
+            color: rgba(255, 105, 180, 0.6);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ----- GIAO DIỆN TRANG WEB NỀN (LANDING PAGE) ----- */
+        .website-container {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            min-height: 560px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: flex;
+            padding: 40px;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .hero-text {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 20px;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #3a3a7c;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            font-style: italic;
+            color: #e91e63;
+        }
+
+        .hero-text p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 380px;
+        }
+
+        .btn-learn {
+            display: inline-block;
+            width: fit-content;
+            padding: 12px 30px;
+            border: 2px solid #3a3a7c;
+            border-radius: 30px;
+            color: #3a3a7c;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-learn:hover {
+            background: #3a3a7c;
+            color: #fff;
+        }
+
+        .hero-image-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart-frame {
+            width: 300px;
+            height: 360px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.25);
+            border: 6px solid #fff;
+        }
+
+        .heart-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .reopen-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .reopen-btn:hover {
+            transform: scale(1.05);
+            background: #d81b60;
+        }
+
+        /* ----- OVERLAY PHONG BÌ 3D ----- */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(18, 12, 28, 0.65);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Hào quang hồng phía sau khi mở thư */
+        .backdrop-glow {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 550px; height: 600px;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.85) 0%, rgba(233, 30, 99, 0.4) 50%, transparent 75%);
+            filter: blur(30px);
+            z-index: 110;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.8s ease;
+            border-radius: 50%;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background-color: #f8bbd0;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            border-left: 160px solid #f48fb1;
+            border-top: 110px solid transparent;
+            border-bottom: 110px solid transparent;
+            z-index: 3;
+            border-bottom-left-radius: 12px;
+        }
+
+        .envelope::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            border-right: 160px solid #f06292;
+            border-top: 110px solid transparent;
+            border-bottom: 110px solid transparent;
+            z-index: 3;
+            border-bottom-right-radius: 12px;
+        }
+
+        .envelope-bottom {
+            position: absolute;
+            bottom: 0; left: 0;
+            border-bottom: 115px solid #ec407a;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            z-index: 4;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        /* Nắp phong bì lật 3D */
+        .envelope-flap {
+            position: absolute;
+            top: 0; left: 0;
+            border-top: 130px solid #d81b60;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s 0.4s;
+            z-index: 5;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 52px;
+            height: 52px;
+            background: radial-gradient(circle, #ff1744, #880e4f);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            z-index: 6;
+            transition: opacity 0.3s ease;
+        }
+
+        /* ----- TỜ THƯ VINTAGE / AESTHETIC ----- */
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            width: 290px;
+            height: 190px;
+            background: #fffdf5;
+            background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
+            background-size: 100% 28px;
+            border-radius: 12px;
+            padding: 30px 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 2;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+            overflow: hidden;
+            border: 1px solid #e0d5c1;
+        }
+
+        .letter-stamp {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            background: radial-gradient(circle, #d32f2f, #8e0000);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            opacity: 0.85;
+        }
+
+        .letter-content {
+            font-family: 'Dancing Script', cursive;
+            color: #2b1704;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.6s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .letter-content h2 {
+            font-size: 1.8rem;
+            color: #b71c1c;
+            margin-bottom: 10px;
+            padding-right: 40px;
+        }
+
+        .typed-text {
+            font-size: 1.35rem;
+            line-height: 1.55;
+            min-height: 180px;
+            white-space: pre-line;
+        }
+
+        .letter-content .signature {
+            text-align: right;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #8e0000;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed #d7c49e;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reset {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .btn-reset:hover {
+            background: #f8bbd0;
+            transform: translateY(-2px);
+        }
+
+        .btn-home {
+            background: #3a3a7c;
+            color: #fff;
+        }
+
+        .btn-home:hover {
+            background: #28285c;
+            transform: translateY(-2px);
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: -50px;
+            width: 100%;
+            text-align: center;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateY(0); opacity: 0.8; }
+            50% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        /* Nút nhạc góc màn hình */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.6);
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #333;
+            z-index: 200;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ----- MỞ THƯ & CĂN GIỮA ----- */
+        .envelope-wrapper.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-wrapper.open .wax-seal {
+            opacity: 0;
+        }
+
+        .envelope-wrapper.open ~ .backdrop-glow {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .envelope-wrapper.open .letter {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 450px;
+            height: 540px;
+            z-index: 200;
+            box-shadow: 0 0 40px rgba(233, 30, 99, 0.35), 0 20px 50px rgba(0,0,0,0.3);
+            cursor: default;
+        }
+
+        .envelope-wrapper.open .letter-content {
+            opacity: 1;
+        }
+
+        .envelope-wrapper.open .click-hint {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="heartContainer"></div>
+
+    <button class="music-control" onclick="toggleMusic()">
+        <span id="musicIcon">🎵</span> <span id="musicText">Bật nhạc</span>
+    </button>
+    <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112188.mp3"></audio>
+
+    <div class="website-container">
+        <button class="reopen-btn" onclick="openOverlay()">Mở lá thư 💌</button>
+
+        <div class="hero-text">
+            <h1>LOVE IS IN<br>THE <span>AIR</span></h1>
+            <p>Một góc nhỏ ngọt ngào dành tặng bạn. Hãy mở lá thư để khám phá thông điệp bí mật bên trong nhé!</p>
+            <a href="#" class="btn-learn">LEARN MORE</a>
+        </div>
+
+        <div class="hero-image-wrapper">
+            <div class="heart-frame">
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop" alt="Romantic Couple">
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="paperOverlay">
+        
+        <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
+            <div class="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-bottom"></div>
+                <div class="wax-seal">❤️</div>
+
+                <div class="letter" onclick="event.stopPropagation()">
+                    <div class="letter-stamp">❤️</div>
+                    <div class="letter-content">
+                        <div>
+                            <h2>Gửi [Tên Người Nhận],</h2>
+                            <div class="typed-text" id="typedText"></div>
+                        </div>
+
+                        <div>
+                            <div class="signature">Thân mến,<br>[Tên Của Bạn]</div>
+
+                            <div class="action-buttons">
+                                <button class="action-btn btn-reset" onclick="resetToUnopened(event)">Gấp thư lại ✉️</button>
+                                <button class="action-btn btn-home" onclick="closeToHome(event)">Về trang chủ 🏠</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="click-hint">✨ Nhấp vào phong bì để mở thư ✨</div>
+        </div>
+
+        <div class="backdrop-glow"></div>
+    </div>
+
+    <script>
+        // Lời nhắn gõ tự động
+        const letterMessage = "Chào mừng bạn đến với trang web nhỏ này.\n\nTụi mình đã tự tay viết bức thư này để dành tặng riêng cho bạn.\n\nThế giới này đôi khi rất vội vã, nên hãy nhớ dành thời gian cho bản thân và những người mình yêu thương nhé!";
+        
+        let typeIndex = 0;
+        let isTyping = false;
+        let typeTimeout;
+
+        // Hiệu ứng gõ chữ tự động (Typewriter)
+        function typeWriter() {
+            const container = document.getElementById('typedText');
+            if (typeIndex < letterMessage.length) {
+                container.textContent += letterMessage.charAt(typeIndex);
+                typeIndex++;
+                typeTimeout = setTimeout(typeWriter, 45); // Tốc độ gõ chữ
+            }
+        }
+
+        function startTyping() {
+            clearTimeout(typeTimeout);
+            document.getElementById('typedText').textContent = "";
+            typeIndex = 0;
+            setTimeout(typeWriter, 600); // Chờ thư mở rộng xong mới gõ
+        }
+
+        // Mở phong bì & gõ chữ
+        function openEnvelope() {
+            const wrapper = document.getElementById('envelopeWrapper');
+            if (!wrapper.classList.contains('open')) {
+                wrapper.classList.add('open');
+                startTyping();
+                playMusicAuto();
+            }
+        }
+
+        // Gấp thư lại về trạng thái phong bì chưa mở
+        function resetToUnopened(event) {
+            if (event) event.stopPropagation();
+            const wrapper = document.getElementById('envelopeWrapper');
+            wrapper.classList.remove('open');
+            clearTimeout(typeTimeout);
+            document.getElementById('typedText').textContent = "";
+        }
+
+        // Thoát về trang chủ
+        function closeToHome(event) {
+            if (event) event.stopPropagation();
+            const overlay = document.getElementById('paperOverlay');
+            const wrapper = document.getElementById('envelopeWrapper');
+            
+            overlay.classList.add('hidden');
+            setTimeout(() => {
+                wrapper.classList.remove('open');
+                clearTimeout(typeTimeout);
+                document.getElementById('typedText').textContent = "";
+            }, 400);
+        }
+
+        // Mở lại overlay lá thư từ trang chủ
+        function openOverlay() {
+            const overlay = document.getElementById('paperOverlay');
+            const wrapper = document.getElementById('envelopeWrapper');
+            
+            wrapper.classList.remove('open');
+            clearTimeout(typeTimeout);
+            document.getElementById('typedText').textContent = "";
+            overlay.classList.remove('hidden');
+        }
+
+        // Trái tim bay lơ lửng ngẫu nhiên trên màn hình
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            const hearts = ['❤️', '💖', '🌸', '✨', '💕'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-particle');
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.fontSize = (Math.random() * 12 + 16) + 'px';
+                
+                container.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }, 400);
+        }
+        createHearts();
+
+        // Nhạc nền
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                bgMusic.pause();
+                document.getElementById('musicIcon').textContent = '🎵';
+                document.getElementById('musicText').textContent = 'Bật nhạc';
+                musicPlaying = false;
+            } else {
+                bgMusic.play();
+                document.getElementById('musicIcon').textContent = '🎶';
+                document.getElementById('musicText').textContent = 'Tắt nhạc';
+                musicPlaying = true;
+            }
+        }
+
+        function playMusicAuto() {
+            if (!musicPlaying) {
+                bgMusic.play().then(() => {
+                    document.getElementById('musicIcon').textContent = '🎶';
+                    document.getElementById('musicText').textContent = 'Tắt nhạc';
+                    musicPlaying = true;
+                }).catch(() => {});
+            }
+        }
+    </script>
+</body>
+</html>
