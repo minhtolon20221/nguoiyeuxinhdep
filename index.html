@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Trend - Envelope Fixed Layers</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-    
+    <title>Phong Bì & Lá Thư TikTok Trend</title>
     <style>
         * {
             margin: 0;
@@ -14,7 +12,7 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
             min-height: 100vh;
             display: flex;
@@ -23,22 +21,7 @@
             overflow: hidden;
         }
 
-        /* TRÁI TIM BAY NỀN */
-        .heart-particle {
-            position: fixed;
-            color: rgba(255, 105, 180, 0.6);
-            font-size: 20px;
-            user-select: none;
-            pointer-events: none;
-            z-index: 1;
-            animation: floatUp linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
-        }
-
+        /* KHUNG CHÍNH CĂN GIỮA MÀN HÌNH */
         .main-wrapper {
             position: relative;
             z-index: 10;
@@ -47,7 +30,7 @@
             align-items: center;
         }
 
-        /* KHUNG PHONG BÌ */
+        /* VỎ PHONG BÌ */
         .envelope-box {
             position: relative;
             width: 300px;
@@ -59,7 +42,7 @@
             cursor: pointer;
         }
 
-        /* LAYER 1: MẶT SAU PHONG BÌ (ĐÁY CÙNG) */
+        /* LỚP 1: MẶT SAU TRONG LÒNG PHONG BÌ */
         .envelope-back {
             position: absolute;
             top: 0; left: 0;
@@ -69,7 +52,7 @@
             z-index: 1;
         }
 
-        /* LAYER 2: LÁ THƯ (MẶC ĐỊNH NẰM TRONG TÚI) */
+        /* LỚP 2: LÁ THƯ (MẶC ĐỊNH NẰM TRONG PHONG BÌ) */
         .letter {
             position: absolute;
             bottom: 8px;
@@ -78,32 +61,30 @@
             height: 180px;
             background: #fffdf5;
             background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
-            background-size: 100% 26px;
+            background-size: 100% 24px;
             border-radius: 10px;
-            padding: 20px 18px;
+            padding: 16px;
             border: 1px solid #e0d5c1;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            
-            /* Z-index ban đầu thấp hơn mặt trước túi */
-            z-index: 2; 
+            z-index: 2;
             transform: translateY(0) scale(1);
-            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s ease;
             box-sizing: border-box;
             overflow: hidden;
         }
 
         .letter-stamp {
             position: absolute;
-            top: 12px; right: 15px;
-            width: 30px; height: 30px;
+            top: 10px; right: 12px;
+            width: 28px; height: 28px;
             background: radial-gradient(circle, #d32f2f, #8e0000);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 13px;
+            color: #fff; font-size: 12px;
         }
 
         .letter-content {
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Comic Sans MS', 'Dancing Script', cursive;
             color: #2b1704;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -114,22 +95,22 @@
         }
 
         .letter-content h3 {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #b71c1c;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .typed-text {
-            font-size: 1.1rem;
-            line-height: 1.45;
+            font-size: 0.95rem;
+            line-height: 1.4;
             white-space: pre-line;
-            min-height: 110px;
+            min-height: 85px;
         }
 
-        .letter-content .signature {
+        .signature {
             text-align: right;
-            font-weight: 700;
-            font-size: 1.15rem;
+            font-weight: bold;
+            font-size: 1rem;
             color: #8e0000;
         }
 
@@ -137,13 +118,13 @@
             background: #d81b60;
             color: #fff;
             border: none;
-            padding: 6px 16px;
+            padding: 5px 14px;
             border-radius: 15px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            margin: 8px auto 0 auto;
+            font-family: sans-serif;
+            margin: 4px auto 0 auto;
             display: block;
             box-shadow: 0 3px 8px rgba(216, 27, 96, 0.3);
             transition: transform 0.2s, background 0.2s;
@@ -154,7 +135,7 @@
             transform: scale(1.05);
         }
 
-        /* LAYER 3: TÚI MẶT TRƯỚC VÀ NẮP DƯỚI (NẰM ĐÈ LÊN LÁ THƯ KHI TRONG PHONG BÌ) */
+        /* LỚP 3: TÚI MẶT TRƯỚC PHONG BÌ */
         .envelope-pocket {
             position: absolute;
             bottom: 0; left: 0;
@@ -191,7 +172,7 @@
             pointer-events: none;
         }
 
-        /* LAYER 4: NẮP BÊN TRÊN PHONG BÌ (MẶC ĐỊNH NẰM TRÊN CÙNG) */
+        /* LỚP 4: NẮP PHONG BÌ */
         .envelope-flap {
             position: absolute;
             top: 0; left: 0;
@@ -207,11 +188,11 @@
             position: absolute;
             top: 75px; left: 50%;
             transform: translateX(-50%);
-            width: 46px; height: 46px;
+            width: 44px; height: 44px;
             background: radial-gradient(circle, #ff1744, #880e4f);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 20px;
+            color: #fff; font-size: 18px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 7;
             transition: opacity 0.2s ease;
@@ -230,25 +211,12 @@
             50% { transform: translateY(-6px); opacity: 1; }
         }
 
-        .music-control {
-            position: fixed;
-            bottom: 20px; left: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255,255,255,0.6);
-            padding: 8px 15px; border-radius: 25px;
-            cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #333;
-            z-index: 200; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            display: flex; align-items: center; gap: 6px;
-        }
+        /* ----- TRẠNG THÁI HIỆU ỨNG (STATE MANAGEMENT) ----- */
 
-        /* ------------------------------------------------------------- */
-        /* CÁC CLASS ĐIỀU KHIỂN TRẠNG THÁI (STATE MANAGEMENT CỰC CHUẨN) */
-        /* ------------------------------------------------------------- */
-
-        /* Nắp mở lật ra sau */
+        /* 1. Mở nắp */
         .flap-open .envelope-flap {
             transform: rotateX(180deg);
-            z-index: 1; /* Chui về phía sau mặt đáy */
+            z-index: 1;
         }
 
         .flap-open .wax-seal {
@@ -256,44 +224,38 @@
             pointer-events: none;
         }
 
-        /* Thư rút lên khỏi miệng túi */
+        /* 2. Trượt thư lên khỏi miệng phong bì */
         .letter-slid-up .letter {
-            transform: translateY(-160px) scale(1);
+            transform: translateY(-165px) scale(1);
         }
 
-        /* Đổi z-index để lá thư nổi lên TRƯỚC toàn bộ phong bì */
+        /* 3. Đưa z-index lá thư lên trên cùng */
         .letter-in-front .letter {
             z-index: 100 !important;
         }
 
-        /* Thư phóng to ra giữa màn hình */
+        /* 4. TĂNG KÍCH THƯỚC LÁ THƯ LÊN RẤT TO KHI MỞ OUT */
         .letter-zoomed .letter {
-            transform: translateY(-20px) scale(1.85);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transform: translateY(-10px) scale(2.5); /* Tăng kích thước gấp 2.5 lần trên màn hình máy tính */
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
         }
 
         .letter-zoomed .letter-content {
             opacity: 1;
         }
 
+        /* Tối ưu hóa cho màn hình điện thoại */
         @media (max-width: 600px) {
             .letter-zoomed .letter {
-                transform: translateY(-10px) scale(1.35);
+                transform: translateY(-10px) scale(1.65); /* Scale vừa vặn màn hình di động */
             }
         }
     </style>
 </head>
 <body>
 
-    <div id="heartContainer"></div>
-
-    <button class="music-control" onclick="toggleMusic()">
-        <span id="musicIcon">🎵</span> <span id="musicText">Bật nhạc</span>
-    </button>
-    <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112188.mp3"></audio>
-
     <div class="main-wrapper">
-        <div class="envelope-box" id="envelopeBox" onclick="openLetterSequence()">
+        <div class="envelope-box" id="envelopeBox" onclick="openEnvelope()">
             <div class="envelope-back"></div>
 
             <div class="letter" id="letterCard" onclick="event.stopPropagation()">
@@ -306,7 +268,7 @@
 
                     <div>
                         <div class="signature">Thân mến,<br>[Tên Của Bạn]</div>
-                        <button class="btn-pack" onclick="closeLetterSequence(event)">Gấp & nhét vào phong bì ✉️</button>
+                        <button class="btn-pack" onclick="closeEnvelope(event)">Gấp & nhét vào phong bì ✉️</button>
                     </div>
                 </div>
             </div>
@@ -317,93 +279,85 @@
             <div class="wax-seal">❤️</div>
         </div>
 
-        <div class="click-hint" id="clickHint">✨ Bấm vào phong bì để mở thư ✨</div>
+        <div class="click-hint" id="clickHint">✨ Nhấp vào phong bì để mở thư ✨</div>
     </div>
 
     <script>
-        const letterText = "Chào mừng bạn đến với lá thư này!\n\nTụi mình đã tự tay chuẩn bị thông điệp này dành riêng cho bạn.\n\nChúc bạn có một ngày thật nhiều niềm vui và luôn mỉm cười nhé!";
+        const letterText = "Chào mừng bạn đã mở lá thư này!\n\nĐây là thông điệp được chuẩn bị riêng dành cho bạn.\n\nChúc bạn luôn có một ngày ngập tràn niềm vui và may mắn!";
         let typeIndex = 0;
-        let typeTimeout;
-        let isAnimating = false; // Chống spam click làm đè animation
+        let typeTimer = null;
+        let isAnimating = false;
 
         function typeWriter() {
             const container = document.getElementById('typedText');
             if (typeIndex < letterText.length) {
                 container.textContent += letterText.charAt(typeIndex);
                 typeIndex++;
-                typeTimeout = setTimeout(typeWriter, 35);
+                typeTimer = setTimeout(typeWriter, 35);
             }
         }
 
         function startTyping() {
-            clearTimeout(typeTimeout);
+            clearTimeout(typeTimer);
             document.getElementById('typedText').textContent = "";
             typeIndex = 0;
             typeWriter();
         }
 
-        function clearTyping() {
-            clearTimeout(typeTimeout);
-            document.getElementById('typedText').textContent = "";
-            typeIndex = 0;
-        }
-
-        /* ----- TIẾN TRÌNH MỞ THƯ (KHÔNG BỊ LỖI LAYER) ----- */
-        function openLetterSequence() {
+        function openEnvelope() {
             if (isAnimating) return;
             const box = document.getElementById('envelopeBox');
 
             if (!box.classList.contains('flap-open')) {
                 isAnimating = true;
 
-                // Bước 1: Lật nắp phong bì ra sau (Chờ 400ms)
+                // BƯỚC 1: Lật mở nắp phong bì
                 box.classList.add('flap-open');
 
+                // BƯỚC 2: Rút lá thư trượt thẳng lên
                 setTimeout(() => {
-                    // Bước 2: Rút lá thư trượt lên phía trên miệng túi (vẫn giữ z-index thấp)
                     box.classList.add('letter-slid-up');
 
+                    // BƯỚC 3: Đổi layer thư lên trên túi phong bì
                     setTimeout(() => {
-                        // Bước 3: ĐỐI LAYER! Khi lá thư đã thoát hoàn toàn khỏi miệng túi, đưa z-index lên 100
                         box.classList.add('letter-in-front');
 
+                        // BƯỚC 4: Phóng to lá thư ra giữa màn hình & chạy gõ chữ
                         setTimeout(() => {
-                            // Bước 4: Phóng to lá thư ra giữa màn hình
                             box.classList.add('letter-zoomed');
                             startTyping();
-                            playMusicAuto();
                             isAnimating = false;
                         }, 50);
 
-                    }, 450); // Chờ trượt lên xong mới đổi z-index
+                    }, 450);
 
                 }, 400);
             }
         }
 
-        /* ----- TIẾN TRÌNH ĐÓNG THƯ (RÚT NGƯỢC VÀO TÚI) ----- */
-        function closeLetterSequence(e) {
+        function closeEnvelope(e) {
             if (e) e.stopPropagation();
             if (isAnimating) return;
-            
+
             isAnimating = true;
             const box = document.getElementById('envelopeBox');
 
-            clearTyping();
+            clearTimeout(typeTimer);
+            document.getElementById('typedText').textContent = "";
 
-            // Bước 1: Thu nhỏ thư trở lại vị trí phía trên miệng túi
+            // BƯỚC 1: Thu nhỏ lá thư
             box.classList.remove('letter-zoomed');
 
+            // BƯỚC 2: Đổi layer lá thư chui vào trong
             setTimeout(() => {
-                // Bước 2: HẠ LAYER TRỞ LẠI! Đưa z-index về lại sau túi phong bì TRƯỚC KHI chui xuống
                 box.classList.remove('letter-in-front');
 
+                // BƯỚC 3: Trượt lá thư hạ xuống lòng túi phong bì
                 setTimeout(() => {
-                    // Bước 3: Trượt lá thư chui xuống lại vào trong túi
                     box.classList.remove('letter-slid-up');
 
+                    // BƯỚC 4: Gập nắp phong bì lại
                     setTimeout(() => {
-                        // Bước 4: Đóng nắp phong bì lại
                         box.classList.remove('flap-open');
                         isAnimating = false;
                     }, 450);
@@ -411,53 +365,6 @@
                 }, 50);
 
             }, 450);
-        }
-
-        // Tạo trái tim bay
-        function createHearts() {
-            const container = document.getElementById('heartContainer');
-            const hearts = ['❤️', '💖', '🌸', '✨', '💕'];
-            
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.classList.add('heart-particle');
-                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                heart.style.fontSize = (Math.random() * 8 + 16) + 'px';
-                
-                container.appendChild(heart);
-                setTimeout(() => heart.remove(), 7000);
-            }, 450);
-        }
-        createHearts();
-
-        // Âm nhạc
-        const bgMusic = document.getElementById('bgMusic');
-        let musicPlaying = false;
-
-        function toggleMusic() {
-            if (musicPlaying) {
-                bgMusic.pause();
-                document.getElementById('musicIcon').textContent = '🎵';
-                document.getElementById('musicText').textContent = 'Bật nhạc';
-                musicPlaying = false;
-            } else {
-                bgMusic.play();
-                document.getElementById('musicIcon').textContent = '🎶';
-                document.getElementById('musicText').textContent = 'Tắt nhạc';
-                musicPlaying = true;
-            }
-        }
-
-        function playMusicAuto() {
-            if (!musicPlaying) {
-                bgMusic.play().then(() => {
-                    document.getElementById('musicIcon').textContent = '🎶';
-                    document.getElementById('musicText').textContent = 'Tắt nhạc';
-                    musicPlaying = true;
-                }).catch(() => {});
-            }
         }
     </script>
 </body>
