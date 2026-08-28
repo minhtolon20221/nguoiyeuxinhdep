@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aesthetic Envelope & Letter</title>
+    <title>TikTok Trend - Envelope & Letter Animation</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -24,7 +24,7 @@
             position: relative;
         }
 
-        /* ----- HIỆU ỨNG TRÁI TIM BAY NỀN ----- */
+        /* ----- TRÁI TIM BAY NỀN (AESTHETIC FLOATING HEARTS) ----- */
         .heart-particle {
             position: fixed;
             color: rgba(255, 105, 180, 0.6);
@@ -46,8 +46,8 @@
             }
         }
 
-        /* ----- VÙNG KHÔNG GIAN CĂN GIỮA MÀN HÌNH ----- */
-        .main-container {
+        /* ----- KHUNG PHONG BÌ CĂN GIỮA MÀN HÌNH ----- */
+        .main-wrapper {
             position: relative;
             z-index: 10;
             display: flex;
@@ -56,12 +56,181 @@
             justify-content: center;
         }
 
+        .envelope-box {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #fce4ec;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.2);
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        /* Nền phía sau trong lòng phong bì */
+        .envelope-back {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #f8bbd0;
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        /* ----- TỜ THƯ NẰM TRONG PHONG BÌ ----- */
+        .letter {
+            position: absolute;
+            bottom: 8px;
+            left: 15px;
+            width: 270px;
+            height: 180px;
+            background: #fffdf5;
+            background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
+            background-size: 100% 26px;
+            border-radius: 10px;
+            padding: 20px 18px;
+            border: 1px solid #e0d5c1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            z-index: 2; /* Nằm giữa mặt sau và nắp túi front */
+            transform: translateY(0) scale(1);
+            transform-origin: center center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s ease;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .letter-stamp {
+            position: absolute;
+            top: 12px; right: 15px;
+            width: 30px; height: 30px;
+            background: radial-gradient(circle, #d32f2f, #8e0000);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; font-size: 13px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .letter-content {
+            font-family: 'Dancing Script', cursive;
+            color: #2b1704;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .letter-content h3 {
+            font-size: 1.4rem;
+            color: #b71c1c;
+            margin-bottom: 6px;
+        }
+
+        .typed-text {
+            font-size: 1.1rem;
+            line-height: 1.45;
+            white-space: pre-line;
+            min-height: 110px;
+        }
+
+        .letter-content .signature {
+            text-align: right;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #8e0000;
+        }
+
+        .btn-pack {
+            background: #d81b60;
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            margin: 8px auto 0 auto;
+            display: block;
+            box-shadow: 0 3px 8px rgba(216, 27, 96, 0.3);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-pack:hover {
+            background: #c2185b;
+            transform: scale(1.05);
+        }
+
+        /* ----- TÚI MẶT TRƯỚC CỦA PHONG BÌ ----- */
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .envelope-pocket::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            border-left: 150px solid #f48fb1;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-bottom-left-radius: 12px;
+        }
+
+        .envelope-pocket::after {
+            content: ''; position: absolute; top: 0; right: 0;
+            border-right: 150px solid #f06292;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-bottom-right-radius: 12px;
+        }
+
+        .envelope-bottom {
+            position: absolute;
+            bottom: 0; left: 0;
+            border-bottom: 105px solid #ec407a;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            z-index: 4;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            pointer-events: none;
+        }
+
+        /* NẮP PHONG BÌ 3D */
+        .envelope-flap {
+            position: absolute;
+            top: 0; left: 0;
+            border-top: 115px solid #d81b60;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            transform-origin: top;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.1s 0.25s;
+            z-index: 5;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 75px; left: 50%;
+            transform: translateX(-50%);
+            width: 46px; height: 46px;
+            background: radial-gradient(circle, #ff1744, #880e4f);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 6;
+            transition: opacity 0.3s ease;
+        }
+
         .click-hint {
             margin-top: 35px;
             color: #d81b60;
             font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
+            font-size: 0.95rem;
             animation: pulse 1.5s infinite;
             transition: opacity 0.3s;
         }
@@ -71,412 +240,8 @@
             50% { transform: translateY(-6px); opacity: 1; }
         }
 
-        /* ----- PHONG BÌ 3D ----- */
-        .envelope-wrapper {
-            position: relative;
-            width: 320px;
-            height: 220px;
-            cursor: pointer;
-            perspective: 1000px;
-        }
-
-        .envelope {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background-color: #f8bbd0;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-            box-shadow: 0 20px 45px rgba(216, 27, 96, 0.2);
-        }
-
-        /* Mặt sau phong bì */
-        .envelope-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #f48fb1;
-            border-radius: 12px;
-        }
-
-        /* Các nắp gập trước của phong bì */
-        .envelope-pocket {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 4;
-            pointer-events: none;
-        }
-
-        .envelope-pocket::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            border-left: 160px solid #f48fb1;
-            border-top: 110px solid transparent;
-            border-bottom: 110px solid transparent;
-            border-bottom-left-radius: 12px;
-        }
-
-        .envelope-pocket::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            border-right: 160px solid #f06292;
-            border-top: 110px solid transparent;
-            border-bottom: 110px solid transparent;
-            border-bottom-right-radius: 12px;
-        }
-
-        .envelope-bottom {
-            position: absolute;
-            bottom: 0; left: 0;
-            border-bottom: 115px solid #ec407a;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            z-index: 5;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-        }
-
-        /* Nắp phong bì mở 3D */
-        .envelope-flap {
-            position: absolute;
-            top: 0; left: 0;
-            border-top: 130px solid #d81b60;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            transform-origin: top;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s 0.4s;
-            z-index: 6;
-        }
-
-        /* Dấu sáp thả tim */
-        .wax-seal {
-            position: absolute;
-            top: 85px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #ff1744, #880e4f);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 22px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            z-index: 7;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        /* ----- LÁ THƯ BEN TRONG ----- */
-        .letter {
-            position: absolute;
-            bottom: 10px;
-            left: 15px;
-            width: 290px;
-            height: 190px;
-            background: #fffdf5;
-            background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
-            background-size: 100% 28px;
-            border-radius: 12px;
-            padding: 30px 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            z-index: 3;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        width 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        height 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        top 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        left 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        box-shadow 0.8s ease;
-            box-sizing: border-box;
-            overflow: hidden;
-            border: 1px solid #e0d5c1;
-        }
-
-        .letter-stamp {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            width: 36px;
-            height: 36px;
-            background: radial-gradient(circle, #d32f2f, #8e0000);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 15px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            opacity: 0.85;
-        }
-
-        .letter-content {
-            font-family: 'Dancing Script', cursive;
-            color: #2b1704;
-            opacity: 0;
-            transition: opacity 0.4s ease 0.6s;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .letter-content h2 {
-            font-size: 1.8rem;
-            color: #b71c1c;
-            margin-bottom: 10px;
-            padding-right: 40px;
-        }
-
-        .typed-text {
-            font-size: 1.35rem;
-            line-height: 1.55;
-            min-height: 180px;
-            white-space: pre-line;
-        }
-
-        .letter-content .signature {
-            text-align: right;
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: #8e0000;
-        }
-
-        /* Nút gấp thư lại nhét vào phong bì */
-        .close-btn-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px dashed #d7c49e;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .btn-pack-back {
-            background: #d81b60;
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
-            transition: all 0.2s ease;
-        }
-
-        .btn-pack-back:hover {
-            background: #c2185b;
-            transform: translateY(-2px);
-        }
-
-        /* Nút âm nhạc */
+        /* NÚT BẬT NHẠC */
         .music-control {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.6);
-            padding: 10px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #333;
-            z-index: 200;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* ----- TRẠNG THÁI MỞ (LẬT NẮP & KÉO THƯ RA) ----- */
-        /* Phase 1: Mở nắp phong bì */
-        .envelope-wrapper.open .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 2;
-        }
-
-        .envelope-wrapper.open .wax-seal {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .envelope-wrapper.open ~ .click-hint {
-            opacity: 0;
-        }
-
-        /* Phase 2: Lá thư rút ra và phóng to chính giữa màn hình */
-        .envelope-wrapper.letter-out .letter {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 440px;
-            height: 530px;
-            z-index: 100;
-            box-shadow: 0 0 50px rgba(233, 30, 99, 0.35), 0 20px 60px rgba(0,0,0,0.25);
-            cursor: default;
-        }
-
-        .envelope-wrapper.letter-out .letter-content {
-            opacity: 1;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="heartContainer"></div>
-
-    <button class="music-control" onclick="toggleMusic()">
-        <span id="musicIcon">🎵</span> <span id="musicText">Bật nhạc</span>
-    </button>
-    <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112188.mp3"></audio>
-
-    <div class="main-container">
-        
-        <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
-            <div class="envelope">
-                <div class="envelope-back"></div>
-
-                <div class="letter" id="letterCard" onclick="event.stopPropagation()">
-                    <div class="letter-stamp">❤️</div>
-                    <div class="letter-content">
-                        <div>
-                            <h2>Gửi [Tên Người Nhận],</h2>
-                            <div class="typed-text" id="typedText"></div>
-                        </div>
-
-                        <div>
-                            <div class="signature">Thân mến,<br>[Tên Của Bạn]</div>
-
-                            <div class="close-btn-wrapper">
-                                <button class="btn-pack-back" onclick="packLetterBack(event)">Gấp & nhét vào phong bì ✉️</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="envelope-pocket"></div>
-                <div class="envelope-bottom"></div>
-                <div class="envelope-flap"></div>
-                <div class="wax-seal">❤️</div>
-            </div>
-        </div>
-
-        <div class="click-hint" id="clickHint">✨ Nhấp vào phong bì để mở thư ✨</div>
-    </div>
-
-    <script>
-        // Nội dung thư gõ tự động
-        const letterMessage = "Chào mừng bạn đến với lá thư bí mật này.\n\nTụi mình đã tự tay chuẩn bị thông điệp này dành riêng cho bạn.\n\nThế giới này đôi khi rất vội vã, nên hãy nhớ dành thời gian cho bản thân và những người mình yêu thương nhé!";
-        
-        let typeIndex = 0;
-        let typeTimeout;
-
-        function typeWriter() {
-            const container = document.getElementById('typedText');
-            if (typeIndex < letterMessage.length) {
-                container.textContent += letterMessage.charAt(typeIndex);
-                typeIndex++;
-                typeTimeout = setTimeout(typeWriter, 40);
-            }
-        }
-
-        function startTyping() {
-            clearTimeout(typeTimeout);
-            document.getElementById('typedText').textContent = "";
-            typeIndex = 0;
-            setTimeout(typeWriter, 500);
-        }
-
-        // 1. Mở phong bì và rút lá thư ra ngoài
-        function openEnvelope() {
-            const wrapper = document.getElementById('envelopeWrapper');
-            if (!wrapper.classList.contains('open')) {
-                // Bước 1: Mở nắp phong bì
-                wrapper.classList.add('open');
-
-                // Bước 2: Rút thư ra và căn giữa màn hình
-                setTimeout(() => {
-                    wrapper.classList.add('letter-out');
-                    startTyping();
-                    playMusicAuto();
-                }, 400);
-            }
-        }
-
-        // 2. Gấp thư và nhét ngược lại vào phong bì
-        function packLetterBack(event) {
-            if (event) event.stopPropagation();
-            const wrapper = document.getElementById('envelopeWrapper');
-            
-            clearTimeout(typeTimeout);
-            document.getElementById('typedText').textContent = "";
-
-            // Bước 1: Thu thư nhỏ lại và chui vào trong phong bì
-            wrapper.classList.remove('letter-out');
-
-            // Bước 2: Đóng nắp phong bì lại
-            setTimeout(() => {
-                wrapper.classList.remove('open');
-            }, 600);
-        }
-
-        // Tạo hiệu ứng trái tim bay lơ lửng
-        function createHearts() {
-            const container = document.getElementById('heartContainer');
-            const hearts = ['❤️', '💖', '🌸', '✨', '💕'];
-            
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.classList.add('heart-particle');
-                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                heart.style.fontSize = (Math.random() * 10 + 16) + 'px';
-                
-                container.appendChild(heart);
-                
-                setTimeout(() => heart.remove(), 7000);
-            }, 450);
-        }
-        createHearts();
-
-        // Xử lý âm nhạc nền
-        const bgMusic = document.getElementById('bgMusic');
-        let musicPlaying = false;
-
-        function toggleMusic() {
-            if (musicPlaying) {
-                bgMusic.pause();
-                document.getElementById('musicIcon').textContent = '🎵';
-                document.getElementById('musicText').textContent = 'Bật nhạc';
-                musicPlaying = false;
-            } else {
-                bgMusic.play();
-                document.getElementById('musicIcon').textContent = '🎶';
-                document.getElementById('musicText').textContent = 'Tắt nhạc';
-                musicPlaying = true;
-            }
-        }
-
-        function playMusicAuto() {
-            if (!musicPlaying) {
-                bgMusic.play().then(() => {
-                    document.getElementById('musicIcon').textContent = '🎶';
-                    document.getElementById('musicText').textContent = 'Tắt nhạc';
-                    musicPlaying = true;
-                }).catch(() => {});
-            }
-        }
-    </script>
-</body>
-</html>
+            bottom: 20px; left: 20px;
+            background: rgba(255, 25
