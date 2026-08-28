@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phong Bì & Lá Thư - HD Super Sharp & Floating Hearts</title>
+    <title>Phong Bì & Lá Thư - Flying Envelope & Responsive HD</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -24,7 +24,6 @@
             align-items: center;
             position: relative;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         /* CONTAINER TRÁI TIM BAY BACKGROUND */
@@ -46,28 +45,18 @@
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(0.8);
-                opacity: 0;
-            }
-            15% {
-                opacity: 0.85;
-            }
-            85% {
-                opacity: 0.85;
-            }
-            100% {
-                transform: translateY(-110vh) rotate(360deg) scale(1.2);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
+            100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* NỀN TỐI KHÔNG DÙNG BLUR (TRÁNH MỜ CHỮ) */
+        /* NỀN TỐI CHE TOÀN MÀN HÌNH */
         .backdrop-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.65);
             z-index: 80;
             opacity: 0;
             pointer-events: none;
@@ -79,20 +68,32 @@
             pointer-events: auto;
         }
 
-        /* KHUNG CHÍNH PHONG BÌ */
+        /* KHUNG CHÍNH + ANIMATION PHONG BÌ BAY TỪ NGOÀI VÀO */
         .main-wrapper {
             position: relative;
             z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
+            animation: envelopeFlyIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* BÌ THƯ TO BẰNG NỬA MÀN HÌNH (520px x 340px) */
+        @keyframes envelopeFlyIn {
+            0% {
+                transform: translateY(100vh) scale(0.3) rotate(-15deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* BÌ THƯ TO CÂN ĐỐI (560px x 360px) */
         .envelope-box {
             position: relative;
-            width: 520px;
-            height: 340px;
+            width: 560px;
+            height: 360px;
             background-color: #fce4ec;
             border-bottom-left-radius: 16px;
             border-bottom-right-radius: 16px;
@@ -114,8 +115,8 @@
             position: absolute;
             bottom: 12px;
             left: 20px;
-            width: 480px;
-            height: 310px;
+            width: 520px;
+            height: 330px;
             background: #fffdf5;
             background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
             background-size: 100% 32px;
@@ -172,37 +173,37 @@
         }
 
         .letter-content h3 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #b71c1c;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .typed-text {
-            font-size: 1.55rem;
-            line-height: 1.6;
+            font-size: 1.45rem;
+            line-height: 1.55;
             white-space: pre-line;
-            min-height: 200px;
             font-weight: 600;
         }
 
         .signature {
             text-align: right;
             font-weight: 700;
-            font-size: 1.55rem;
+            font-size: 1.45rem;
             color: #8e0000;
+            margin-top: 10px;
         }
 
         .btn-pack {
             background: #d81b60;
             color: #fff;
             border: none;
-            padding: 10px 26px;
+            padding: 9px 24px;
             border-radius: 20px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            margin: 6px auto 0 auto;
+            margin: 10px auto 0 auto;
             display: block;
             box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
             transition: transform 0.2s, background 0.2s;
@@ -224,26 +225,26 @@
 
         .envelope-pocket::before {
             content: ''; position: absolute; top: 0; left: 0;
-            border-left: 260px solid #f48fb1;
-            border-top: 170px solid transparent;
-            border-bottom: 170px solid transparent;
+            border-left: 280px solid #f48fb1;
+            border-top: 180px solid transparent;
+            border-bottom: 180px solid transparent;
             border-bottom-left-radius: 16px;
         }
 
         .envelope-pocket::after {
             content: ''; position: absolute; top: 0; right: 0;
-            border-right: 260px solid #f06292;
-            border-top: 170px solid transparent;
-            border-bottom: 170px solid transparent;
+            border-right: 280px solid #f06292;
+            border-top: 180px solid transparent;
+            border-bottom: 180px solid transparent;
             border-bottom-right-radius: 16px;
         }
 
         .envelope-bottom {
             position: absolute;
             bottom: 0; left: 0;
-            border-bottom: 180px solid #ec407a;
-            border-left: 260px solid transparent;
-            border-right: 260px solid transparent;
+            border-bottom: 190px solid #ec407a;
+            border-left: 280px solid transparent;
+            border-right: 280px solid transparent;
             z-index: 5;
             border-bottom-left-radius: 16px;
             border-bottom-right-radius: 16px;
@@ -254,9 +255,9 @@
         .envelope-flap {
             position: absolute;
             top: 0; left: 0;
-            border-top: 190px solid #d81b60;
-            border-left: 260px solid transparent;
-            border-right: 260px solid transparent;
+            border-top: 200px solid #d81b60;
+            border-left: 280px solid transparent;
+            border-right: 280px solid transparent;
             transform-origin: top;
             transition: transform 0.4s ease-in-out;
             z-index: 6;
@@ -264,7 +265,7 @@
 
         .wax-seal {
             position: absolute;
-            top: 125px; left: 50%;
+            top: 130px; left: 50%;
             transform: translateX(-50%);
             width: 52px; height: 52px;
             background: radial-gradient(circle, #ff1744, #880e4f);
@@ -277,10 +278,10 @@
         }
 
         .click-hint {
-            margin-top: 30px;
+            margin-top: 25px;
             color: #d81b60;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             animation: pulse 1.5s infinite;
         }
 
@@ -302,20 +303,16 @@
             transition: transform 0.2s;
         }
 
-        .music-control:hover {
-            transform: scale(1.05);
-        }
+        .music-control:hover { transform: scale(1.05); }
 
-        /* ----- HIỆU ỨNG MỞ THƯ TỰ ĐỘNG KHÔNG SCALE (SẮC NÉT 100%) ----- */
+        /* ----- HIỆU ỨNG MỞ THƯ AUTO-RESPONSIVE KHÔNG TRÀN MÀN HÌNH ----- */
 
         .flap-open .envelope-flap {
             transform: rotateX(180deg);
             z-index: 1;
         }
 
-        .flap-open .wax-seal {
-            opacity: 0;
-        }
+        .flap-open .wax-seal { opacity: 0; }
 
         /* Rút lá thư trượt nhô lên */
         .letter-slid-up .letter {
@@ -326,60 +323,57 @@
             z-index: 100 !important;
         }
 
-        /* BUNG THƯ THÀNH CỬA SỔ NỔI CHUẨN ĐIỂM ẢNH (ZERO BLUR) */
+        /* BUNG THƯ VỪA VẶN MÀN HÌNH (MAX 90VW / 85VH) */
         .letter-zoomed .letter {
             position: fixed !important;
             top: 50% !important;
             left: 50% !important;
-            width: 720px !important;
-            height: 460px !important;
-            margin-left: -360px !important;
-            margin-top: -230px !important;
-            transform: translateY(0) !important;
-            padding: 32px 38px !important;
-            background-size: 100% 34px !important;
+            width: 680px !important;
+            max-width: 90vw !important;
+            height: 480px !important;
+            max-height: 85vh !important;
+            transform: translate(-50%, -50%) !important;
+            padding: 28px 32px !important;
+            background-size: 100% 32px !important;
             z-index: 1000 !important;
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6) !important;
+            overflow-y: auto !important; /* Tự động cuộn nếu chữ quá dài */
         }
 
-        .letter-zoomed .letter-content {
-            opacity: 1;
-        }
+        .letter-zoomed .letter-content { opacity: 1; }
 
-        /* ĐIỆN THOẠI & MÀN HÌNH NHỎ CO GIÃN THÔNG MINH */
-        @media (max-width: 768px) {
+        /* ĐIỆN THOẠI & MÀN HÌNH NHỎ */
+        @media (max-width: 650px) {
             .envelope-box {
-                width: 90vw;
-                height: 58vw;
+                width: 92vw;
+                height: 59vw;
             }
             .envelope-pocket::before, .envelope-pocket::after,
             .envelope-bottom, .envelope-flap {
-                border-left-width: 45vw !important;
-                border-right-width: 45vw !important;
+                border-left-width: 46vw !important;
+                border-right-width: 46vw !important;
             }
             .envelope-pocket::before, .envelope-pocket::after {
                 border-top-width: 30vw !important;
                 border-bottom-width: 30vw !important;
             }
             .envelope-bottom { border-bottom-width: 31vw !important; }
-            .envelope-flap { border-top-width: 32vw !important; }
-            .wax-seal { top: 20vw; }
+            .envelope-flap { border-top-width: 33vw !important; }
+            .wax-seal { top: 21vw; width: 44px; height: 44px; font-size: 20px; }
 
             .letter {
-                width: 82vw;
-                height: 52vw;
+                width: 84vw;
+                height: 53vw;
                 left: 4vw;
             }
 
             .letter-zoomed .letter {
                 width: 92vw !important;
-                height: 480px !important;
-                margin-left: -46vw !important;
-                margin-top: -240px !important;
+                height: 80vh !important;
                 padding: 20px !important;
             }
-            .typed-text { font-size: 1.25rem; min-height: 180px; }
-            .letter-content h3 { font-size: 1.7rem; }
+            .typed-text { font-size: 1.25rem; }
+            .letter-content h3 { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -445,10 +439,9 @@
             const heartIcons = ['❤️', '💖', '💕', '💗', '🌸', '✨'];
             heart.textContent = heartIcons[Math.floor(Math.random() * heartIcons.length)];
 
-            // Tùy chỉnh vị trí và kích thước ngẫu nhiên
             const randomLeft = Math.random() * 100;
-            const randomSize = Math.random() * 18 + 14; // 14px - 32px
-            const randomDuration = Math.random() * 4 + 5; // 5s - 9s
+            const randomSize = Math.random() * 18 + 14;
+            const randomDuration = Math.random() * 4 + 5;
 
             heart.style.left = `${randomLeft}vw`;
             heart.style.fontSize = `${randomSize}px`;
@@ -456,13 +449,9 @@
 
             container.appendChild(heart);
 
-            // Tự động xóa element khi bay xong
-            setTimeout(() => {
-                heart.remove();
-            }, randomDuration * 1000);
+            setTimeout(() => { heart.remove(); }, randomDuration * 1000);
         }
 
-        // Tạo trái tim liên tục mỗi 450ms
         setInterval(createFloatingHeart, 450);
 
         function typeWriter() {
@@ -481,7 +470,7 @@
             typeWriter();
         }
 
-        // BẮT ĐẦU VÀO NHẠC VỚI HIỆU ỨNG TĂNG ÂM LƯỢNG TỪ TỪ (FADE-IN) TỪ GIÂY 18
+        // BẮT ĐẦU VÀO NHẠC VỚI FADE-IN TỪ GIÂY 18
         function playPreChorusMusic() {
             if (!musicPlaying) {
                 clearInterval(fadeInterval);
@@ -532,7 +521,7 @@
                     setTimeout(() => {
                         box.classList.add('letter-in-front');
 
-                        // 4. Bung thư thành cửa sổ nổi sắc nét 100% & gõ chữ
+                        // 4. Bung thư thành cửa sổ nổi sắc nét & gõ chữ
                         setTimeout(() => {
                             box.classList.add('letter-zoomed');
                             overlay.classList.add('active');
@@ -577,7 +566,7 @@
             }, 500);
         }
 
-        // NÚT ĐIỀU KHIỂN NHẠC THỦ CÔNG
+        // NÚT ĐIỀU KHIỂN NHẠC
         function toggleMusic() {
             if (musicPlaying) {
                 bgMusic.pause();
