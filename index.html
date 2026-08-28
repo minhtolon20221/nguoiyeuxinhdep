@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phong Bì & Lá Thư - Sharp Text & Audio Fixed</title>
+    <title>Phong Bì & Lá Thư - Sửa Lỗi Mờ & Âm Thanh</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -16,7 +16,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Khóa hoàn toàn thanh cuộn */
+            overflow: hidden;
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
             display: flex;
@@ -25,22 +25,13 @@
             position: relative;
         }
 
-        .main-wrapper {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* NỀN MỜ KHI MỞ THƯ */
+        /* NỀN TỐI (KHÔNG DÙNG BLUR ĐỂ TRÁNH MỜ CHỮ) */
         .backdrop-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(5px);
-            z-index: 80;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 40;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
@@ -51,6 +42,20 @@
             pointer-events: auto;
         }
 
+        /* KHUNG CHÍNH (NỔI LÊN TRÊN NỀN TỐI KHI MỞ THƯ) */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: z-index 0.3s;
+        }
+
+        .main-wrapper.active-wrapper {
+            z-index: 100; /* Nâng cao hơn nền tối */
+        }
+
         /* PHONG BÌ */
         .envelope-box {
             position: relative;
@@ -59,7 +64,7 @@
             background-color: #fce4ec;
             border-bottom-left-radius: 14px;
             border-bottom-right-radius: 14px;
-            box-shadow: 0 18px 40px rgba(216, 27, 96, 0.22);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
             cursor: pointer;
         }
 
@@ -72,66 +77,62 @@
             z-index: 1;
         }
 
-        /* LÁ THƯ THIẾT KẾ KÍCH THƯỚC THẬT CỰC NÉT (600px x 400px) */
+        /* LÁ THƯ (KÍCH THƯỚC CHUẨN SẮC NÉT HOÀN HẢO) */
         .letter {
             position: absolute;
             bottom: 10px;
             left: 50%;
-            width: 600px;
-            height: 400px;
-            margin-left: -300px; /* Căn giữa */
+            width: 520px;
+            height: 350px;
+            margin-left: -260px;
             background: #fffdf5;
             background-image: linear-gradient(#e8e0d0 1px, transparent 1px);
-            background-size: 100% 32px;
-            border-radius: 14px;
-            padding: 30px;
+            background-size: 100% 30px;
+            border-radius: 12px;
+            padding: 25px;
             border: 1px solid #e0d5c1;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             z-index: 2;
             
-            /* Ban đầu thu nhỏ 0.53 lần để nhét vừa phong bì */
-            transform: translateY(0) scale(0.53);
+            transform: translateY(0) scale(0.6);
             transform-origin: bottom center;
-            transition: transform 0.5s cubic-bezier(0.34, 1.15, 0.64, 1), box-shadow 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.34, 1.15, 0.64, 1);
             box-sizing: border-box;
             overflow: hidden;
         }
 
-        /* NÚT ĐÓNG (X) GÓC TRÊN LÁ THƯ */
         .close-btn-x {
             position: absolute;
-            top: 14px;
-            right: 18px;
-            width: 32px;
-            height: 32px;
+            top: 12px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
             background: rgba(216, 27, 96, 0.12);
             color: #d81b60;
             border: none;
             border-radius: 50%;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 10;
-            transition: background 0.2s, transform 0.2s;
         }
 
         .close-btn-x:hover {
             background: #d81b60;
             color: #fff;
-            transform: scale(1.1);
         }
 
         .letter-stamp {
             position: absolute;
-            top: 16px; right: 65px;
-            width: 36px; height: 36px;
+            top: 14px; right: 55px;
+            width: 32px; height: 32px;
             background: radial-gradient(circle, #d32f2f, #8e0000);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 14px;
+            color: #fff; font-size: 13px;
         }
 
         .letter-content {
@@ -146,22 +147,23 @@
         }
 
         .letter-content h3 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #b71c1c;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .typed-text {
-            font-size: 1.45rem;
-            line-height: 1.6;
+            font-size: 1.3rem;
+            line-height: 1.5;
             white-space: pre-line;
-            min-height: 180px;
+            min-height: 150px;
+            font-weight: 600;
         }
 
         .signature {
             text-align: right;
             font-weight: 700;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #8e0000;
         }
 
@@ -169,21 +171,15 @@
             background: #d81b60;
             color: #fff;
             border: none;
-            padding: 8px 22px;
+            padding: 8px 20px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            margin: 8px auto 0 auto;
+            margin: 4px auto 0 auto;
             display: block;
             box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .btn-pack:hover {
-            background: #c2185b;
-            transform: scale(1.05);
         }
 
         /* TÚI MẶT TRƯỚC PHONG BÌ */
@@ -262,24 +258,19 @@
             50% { transform: translateY(-6px); opacity: 1; }
         }
 
-        /* NÚT ĐIỀU KHIỂN NHẠC */
+        /* NÚT BẬT NHẠC */
         .music-control {
             position: fixed;
             bottom: 20px; left: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(255,255,255,0.8);
+            background: #fff;
+            border: 2px solid #d81b60;
             padding: 10px 20px; border-radius: 30px;
-            cursor: pointer; font-size: 0.9rem; font-weight: 600; color: #333;
-            z-index: 200; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            cursor: pointer; font-size: 0.9rem; font-weight: 600; color: #d81b60;
+            z-index: 200; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             display: flex; align-items: center; gap: 8px;
-            transition: all 0.2s;
         }
 
-        .music-control:hover {
-            transform: scale(1.05);
-        }
-
-        /* ----- TRẠNG THÁI HIỆU ỨNG (ANIMATION STATES) ----- */
+        /* ----- HIỆU ỨNG MỞ THƯ ----- */
 
         .flap-open .envelope-flap {
             transform: rotateX(180deg);
@@ -288,39 +279,36 @@
 
         .flap-open .wax-seal {
             opacity: 0;
-            pointer-events: none;
         }
 
         .letter-slid-up .letter {
-            transform: translateY(-220px) scale(0.53);
+            transform: translateY(-210px) scale(0.6);
         }
 
         .letter-in-front .letter {
             z-index: 100 !important;
         }
 
-        /* MỞ THƯ RA NATIVE KÍCH THƯỚC CHUẨN 100% (SẮC NÉT HOÀN HẢO) */
+        /* PHÓNG TO NATIVE 100% HIỂN THỊ RÕ NÉT */
         .letter-zoomed .letter {
-            transform: translateY(-40px) scale(1); 
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+            transform: translateY(-30px) scale(1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
         .letter-zoomed .letter-content {
             opacity: 1;
         }
 
-        /* ĐIỆN THOẠI: THU NHỎ TỶ LỆ TRÊN MÀN HÌNH NHỎ */
-        @media (max-width: 650px) {
+        @media (max-width: 600px) {
             .letter {
-                width: 520px;
-                height: 360px;
-                margin-left: -260px;
-                padding: 22px;
+                width: 340px;
+                height: 380px;
+                margin-left: -170px;
+                padding: 18px;
             }
-            .letter-content h3 { font-size: 1.6rem; }
-            .typed-text { font-size: 1.2rem; min-height: 150px; }
+            .typed-text { font-size: 1.15rem; }
             .letter-zoomed .letter {
-                transform: translateY(-20px) scale(0.68);
+                transform: translateY(-10px) scale(1);
             }
         }
     </style>
@@ -330,15 +318,12 @@
     <div class="backdrop-overlay" id="backdropOverlay" onclick="closeEnvelope(event)"></div>
 
     <button class="music-control" onclick="toggleMusic()">
-        <span id="musicIcon">🎵</span> <span id="musicText">Bật nhạc My Love Mine All Mine</span>
+        <span id="musicIcon">🎵</span> <span id="musicText">Bật Nhạc (My Love Mine All Mine)</span>
     </button>
 
-    <audio id="bgMusic" preload="auto" loop>
-        <source src="https://files.catbox.moe/8m9r1n.mp3" type="audio/mpeg">
-        <source src="https://ia801503.us.archive.org/15/items/mitski-my-love-mine-all-mine/Mitski%20-%20My%20Love%20Mine%20All%20Mine.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgMusic" preload="auto" loop src="https://ia801503.us.archive.org/15/items/mitski-my-love-mine-all-mine/Mitski%20-%20My%20Love%20Mine%20All%20Mine.mp3"></audio>
 
-    <div class="main-wrapper">
+    <div class="main-wrapper" id="mainWrapper">
         <div class="envelope-box" id="envelopeBox" onclick="openEnvelope()">
             <div class="envelope-back"></div>
 
@@ -373,6 +358,8 @@
         let typeIndex = 0;
         let typeTimer = null;
         let isAnimating = false;
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
 
         function typeWriter() {
             const container = document.getElementById('typedText');
@@ -390,11 +377,28 @@
             typeWriter();
         }
 
+        // KÍCH HOẠT NHẠC NGAY KHI BẤM CHUỘT
+        function startMusicImmediately() {
+            if (!musicPlaying) {
+                bgMusic.currentTime = 38; // Điệp khúc
+                bgMusic.play().then(() => {
+                    document.getElementById('musicIcon').textContent = '🎶';
+                    document.getElementById('musicText').textContent = 'Đang phát nhạc ❤️';
+                    musicPlaying = true;
+                }).catch((err) => {
+                    console.log("Cần tương tác phát nhạc:", err);
+                });
+            }
+        }
+
         // MỞ THƯ
         function openEnvelope() {
+            startMusicImmediately(); // Gọi lệnh phát nhạc trực tiếp trong luồng nhấp chuột
+
             if (isAnimating) return;
             const box = document.getElementById('envelopeBox');
             const overlay = document.getElementById('backdropOverlay');
+            const wrapper = document.getElementById('mainWrapper');
 
             if (!box.classList.contains('flap-open')) {
                 isAnimating = true;
@@ -402,20 +406,20 @@
                 // 1. Mở nắp phong bì
                 box.classList.add('flap-open');
 
-                // 2. Rút lá thư trượt thẳng lên
+                // 2. Rút lá thư trượt lên
                 setTimeout(() => {
                     box.classList.add('letter-slid-up');
 
-                    // 3. Đưa layer lá thư lên trước mặt phong bì
+                    // 3. Đưa layer lá thư lên trên
                     setTimeout(() => {
                         box.classList.add('letter-in-front');
 
-                        // 4. Phóng to lá thư sắc nét & mở nền mờ + gõ chữ
+                        // 4. Phóng to thư, bật nền tối & đưa wrapper lên trên z-index
                         setTimeout(() => {
+                            wrapper.classList.add('active-wrapper');
                             box.classList.add('letter-zoomed');
                             overlay.classList.add('active');
                             startTyping();
-                            playMusicAuto();
                             isAnimating = false;
                         }, 50);
 
@@ -433,6 +437,7 @@
             isAnimating = true;
             const box = document.getElementById('envelopeBox');
             const overlay = document.getElementById('backdropOverlay');
+            const wrapper = document.getElementById('mainWrapper');
 
             clearTimeout(typeTimer);
             document.getElementById('typedText').textContent = "";
@@ -442,6 +447,7 @@
 
             setTimeout(() => {
                 box.classList.remove('letter-in-front');
+                wrapper.classList.remove('active-wrapper');
 
                 setTimeout(() => {
                     box.classList.remove('letter-slid-up');
@@ -456,40 +462,15 @@
             }, 450);
         }
 
-        // XỬ LÝ ÂM THANH
-        const bgMusic = document.getElementById('bgMusic');
-        let musicPlaying = false;
-
-        function playChorus() {
-            bgMusic.currentTime = 38; // Nhảy đến điệp khúc (0:38)
-            const playPromise = bgMusic.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    document.getElementById('musicIcon').textContent = '🎶';
-                    document.getElementById('musicText').textContent = 'Đang phát: My Love Mine All Mine';
-                    musicPlaying = true;
-                }).catch(error => {
-                    console.log("Lỗi phát âm thanh:", error);
-                    document.getElementById('musicText').textContent = 'Nhấp vào đây để bật nhạc 🎵';
-                });
-            }
-        }
-
+        // NÚT ĐIỀU KHIỂN NHẠC
         function toggleMusic() {
             if (musicPlaying) {
                 bgMusic.pause();
                 document.getElementById('musicIcon').textContent = '🎵';
-                document.getElementById('musicText').textContent = 'Bật nhạc My Love Mine All Mine';
+                document.getElementById('musicText').textContent = 'Bật Nhạc (My Love Mine All Mine)';
                 musicPlaying = false;
             } else {
-                playChorus();
-            }
-        }
-
-        function playMusicAuto() {
-            if (!musicPlaying) {
-                playChorus();
+                startMusicImmediately();
             }
         }
     </script>
