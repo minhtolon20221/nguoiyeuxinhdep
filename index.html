@@ -27,7 +27,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ----- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM S-SHAPE & MÁY BAY ----- */
+        /* ----- MÀN HÌNH INTRO: CHỈ CÓ BẢN ĐỒ VIỆT NAM & MÁY BAY ----- */
         .intro-scene {
             position: fixed;
             top: 0; left: 0;
@@ -47,20 +47,10 @@
             pointer-events: none;
         }
 
-        .intro-title {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.6rem;
-            color: #d81b60;
-            margin-bottom: 10px;
-            font-weight: 700;
-            text-shadow: 0 2px 8px rgba(216, 27, 96, 0.2);
-            text-align: center;
-        }
-
         .map-container {
             position: relative;
             width: 180px;
-            height: 360px;
+            height: 380px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -69,35 +59,35 @@
         .vietnam-map-svg {
             position: absolute;
             top: 0; left: 0;
-            filter: drop-shadow(0 2px 4px rgba(216, 27, 96, 0.2));
+            filter: drop-shadow(0 2px 6px rgba(216, 27, 96, 0.25));
         }
 
         .flying-plane {
             position: absolute;
-            font-size: 24px;
+            font-size: 26px;
             animation: flyAlongVietnam 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             z-index: 3;
-            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.25));
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
         }
 
         @keyframes flyAlongVietnam {
-            0%   { top: 10px;  left: 65px; transform: rotate(45deg) scale(0.8); }
-            30%  { top: 110px; left: 95px; transform: rotate(35deg) scale(1); }
-            70%  { top: 250px; left: 75px; transform: rotate(15deg) scale(1); }
-            100% { top: 330px; left: 70px; transform: rotate(50deg) scale(0.9); }
+            0%   { top: 15px;  left: 62px; transform: rotate(45deg) scale(0.8); }
+            35%  { top: 120px; left: 92px; transform: rotate(30deg) scale(1); }
+            70%  { top: 270px; left: 74px; transform: rotate(15deg) scale(1); }
+            100% { top: 350px; left: 72px; transform: rotate(50deg) scale(0.9); }
         }
 
         .node-north {
-            position: absolute; top: 0px; left: -10px;
+            position: absolute; top: 5px; left: -15px;
             font-size: 0.75rem; font-weight: 700; color: #b71c1c;
-            background: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 8px;
+            background: rgba(255,255,255,0.95); padding: 2px 6px; border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .node-south {
-            position: absolute; bottom: 5px; right: -15px;
+            position: absolute; bottom: 10px; right: -20px;
             font-size: 0.75rem; font-weight: 700; color: #b71c1c;
-            background: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 8px;
+            background: rgba(255,255,255,0.95); padding: 2px 6px; border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
@@ -106,7 +96,7 @@
             background: #d81b60;
             color: #fff;
             border: none;
-            padding: 12px 30px;
+            padding: 12px 32px;
             border-radius: 30px;
             font-weight: 600;
             font-size: 1rem;
@@ -143,6 +133,24 @@
             15% { opacity: 0.85; }
             85% { opacity: 0.85; }
             100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* LỚP TỐI (BACKDROP) KHI MỞ THƯ */
+        .dark-backdrop {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 99998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            pointer-events: none;
+        }
+
+        .dark-backdrop.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* KHUNG BAO PHONG BÌ */
@@ -370,8 +378,7 @@
 
         .music-control:hover { transform: scale(1.05); }
 
-        /* ----- TRẠNG THÁI MỞ & ĐÓNG THƯ (SẮC NÉT, KHÔNG LỆCH LAYER) ----- */
-
+        /* ----- TRẠNG THÁI MỞ & ĐÓNG THƯ ----- */
         .envelope-box.flap-open .envelope-flap {
             transform: rotateX(180deg);
             z-index: 1;
@@ -397,7 +404,7 @@
             padding: 28px 32px !important;
             background-size: 100% 32px !important;
             z-index: 999999 !important;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25) !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
             overflow-y: auto !important;
             backface-visibility: hidden;
         }
@@ -448,20 +455,20 @@
 </head>
 <body>
 
-    <!-- MÀN HÌNH INTRO: BẢN ĐỒ VIỆT NAM S-SHAPE -->
+    <!-- LỚP NỀN TỐI KHI MỞ THƯ -->
+    <div class="dark-backdrop" id="darkBackdrop"></div>
+
+    <!-- MÀN HÌNH INTRO: CHỈ CÓ BẢN ĐỒ VIỆT NAM & MÁY BAY -->
     <div class="intro-scene" id="introScene">
-        <div class="intro-title">🇻🇳 Hành trình từ Bắc vào Nam...</div>
         <div class="map-container">
-            <!-- SVG Bản đồ hình chữ S Việt Nam chi tiết -->
-            <svg class="vietnam-map-svg" viewBox="0 0 160 360" width="140" height="340">
-                <!-- Viền nền bản đồ -->
-                <path d="M 75,15 C 85,25 95,35 88,50 C 78,65 65,60 58,75 C 50,90 65,105 75,120 C 85,135 92,150 88,170 C 83,190 68,205 62,225 C 55,245 65,260 75,280 C 85,300 90,320 82,340 C 75,350 68,345 70,330" fill="none" stroke="rgba(216, 27, 96, 0.3)" stroke-width="6" stroke-linecap="round"/>
-                <!-- Hình khối chính bản đồ Việt Nam chữ S -->
-                <path d="M 72,12 C 82,22 92,32 85,47 C 75,62 62,57 55,72 C 47,87 62,102 72,117 C 82,132 89,147 85,167 C 80,187 65,202 59,222 C 52,242 62,257 72,277 C 82,297 87,317 79,337 C 73,348 66,342 68,328 Z" fill="rgba(216, 27, 96, 0.18)" stroke="#d81b60" stroke-width="2.5"/>
+            <!-- SVG Bản đồ hình chữ S Việt Nam chi tiết từ Bắc vào Nam -->
+            <svg class="vietnam-map-svg" viewBox="0 0 160 380" width="150" height="360">
+                <path d="M 72,15 C 84,25 96,40 88,62 C 78,84 62,88 52,110 C 42,132 58,155 74,178 C 90,201 104,220 94,252 C 84,284 58,300 52,328 C 46,356 62,372 78,385" fill="none" stroke="rgba(216, 27, 96, 0.3)" stroke-width="7" stroke-linecap="round"/>
+                <path d="M 70,12 C 82,22 94,37 86,59 C 76,81 60,85 50,107 C 40,129 56,152 72,175 C 88,198 102,217 92,249 C 82,281 56,297 50,325 C 44,353 60,369 76,382 Z" fill="rgba(216, 27, 96, 0.2)" stroke="#d81b60" stroke-width="2.5"/>
             </svg>
             <div class="flying-plane">✈️</div>
-            <div class="node-north">📍 Hà Nội</div>
-            <div class="node-south">📍 TP. HCM</div>
+            <div class="node-north">📍 Bắc</div>
+            <div class="node-south">📍 Nam</div>
         </div>
         <button class="start-btn" onclick="startMainScene()">Khám phá ngay ➔</button>
     </div>
@@ -598,6 +605,8 @@
             if (isAnimating) return;
             
             const box = document.getElementById('envelopeBox');
+            const backdrop = document.getElementById('darkBackdrop');
+
             if (!box.classList.contains('flap-open')) {
                 isAnimating = true;
 
@@ -609,6 +618,7 @@
 
                 setTimeout(() => {
                     box.classList.add('letter-zoomed');
+                    backdrop.classList.add('active');
                     startTyping();
                     isAnimating = false;
                 }, 750);
@@ -622,10 +632,12 @@
             
             isAnimating = true;
             const box = document.getElementById('envelopeBox');
+            const backdrop = document.getElementById('darkBackdrop');
 
             clearTimeout(typeTimer);
             document.getElementById('typedText').textContent = "";
 
+            backdrop.classList.remove('active');
             box.classList.remove('letter-zoomed');
 
             setTimeout(() => {
